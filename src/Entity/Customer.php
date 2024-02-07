@@ -28,15 +28,16 @@ class Customer
     private ?string $phone = null;
 
     #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'customer')]
-    private Collection $messages;
+    private Collection $message;
 
-    #[ORM\OneToOne(mappedBy: 'customer', cascade: ['persist', 'remove'])]
-    private ?Reviews $reviews = null;
+    #[ORM\OneToMany(targetEntity: Reviews::class, mappedBy: 'customer')]
+    private Collection $reviews;
 
     public function __construct()
     {
-        $this->messages = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -91,54 +92,41 @@ class Customer
         return $this;
     }
 
+
     /**
      * @return Collection<int, Message>
      */
-    public function getMessages(): Collection
+    public function getMessage(): Collection
     {
-        return $this->messages;
+        return $this->message;
     }
 
-    public function addMessage(Message $message): static
-    {
-        if (!$this->messages->contains($message)) {
-            $this->messages->add($message);
-            $message->setCustomer($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMessage(Message $message): static
-    {
-        if ($this->messages->removeElement($message)) {
-            // set the owning side to null (unless already changed)
-            if ($message->getCustomer() === $this) {
-                $message->setCustomer(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getReviews(): ?Reviews
+    /**
+     * @return Collection<int, Reviews>
+     */
+    public function getReviews(): Collection
     {
         return $this->reviews;
     }
 
-    public function setReviews(?Reviews $reviews): static
+    public function addReview(Reviews $review): static
     {
-        // unset the owning side of the relation if necessary
-        if ($reviews === null && $this->reviews !== null) {
-            $this->reviews->setCustomer(null);
+        if (!$this->reviews->contains($review)) {
+            $this->reviews->add($review);
+            $review->setCustomer($this);
         }
 
-        // set the owning side of the relation if necessary
-        if ($reviews !== null && $reviews->getCustomer() !== $this) {
-            $reviews->setCustomer($this);
-        }
+        return $this;
+    }
 
-        $this->reviews = $reviews;
+    public function removeReview(Reviews $review): static
+    {
+        if ($this->reviews->removeElement($review)) {
+            // set the owning side to null (unless already changed)
+            if ($review->getCustomer() === $this) {
+                $review->setCustomer(null);
+            }
+        }
 
         return $this;
     }

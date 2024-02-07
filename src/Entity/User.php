@@ -35,28 +35,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $firstname = null;
 
-    #[ORM\ManyToMany(targetEntity: Message::class, mappedBy: 'user')]
-    private Collection $messages;
-
-    #[ORM\ManyToMany(targetEntity: Reviews::class, mappedBy: 'user')]
-    private Collection $reviews;
-
     #[ORM\OneToMany(targetEntity: Schedules::class, mappedBy: 'user')]
     private Collection $schedules;
-
-    #[ORM\ManyToMany(targetEntity: Car::class, mappedBy: 'user')]
-    private Collection $cars;
 
     #[ORM\OneToMany(targetEntity: Service::class, mappedBy: 'user')]
     private Collection $services;
 
+    #[ORM\OneToMany(targetEntity: Car::class, mappedBy: 'user')]
+    private Collection $car;
+
+    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'users')]
+    private Collection $message;
+
+    #[ORM\OneToMany(targetEntity: Reviews::class, mappedBy: 'user')]
+    private Collection $reviews;
+
     public function __construct()
     {
-        $this->messages = new ArrayCollection();
-        $this->reviews = new ArrayCollection();
         $this->schedules = new ArrayCollection();
-        $this->cars = new ArrayCollection();
         $this->services = new ArrayCollection();
+        $this->car = new ArrayCollection();
+        $this->message = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -154,60 +154,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Message>
-     */
-    public function getMessages(): Collection
-    {
-        return $this->messages;
-    }
-
-    public function addMessage(Message $message): static
-    {
-        if (!$this->messages->contains($message)) {
-            $this->messages->add($message);
-            $message->addUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMessage(Message $message): static
-    {
-        if ($this->messages->removeElement($message)) {
-            $message->removeUser($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Reviews>
-     */
-    public function getReviews(): Collection
-    {
-        return $this->reviews;
-    }
-
-    public function addReview(Reviews $review): static
-    {
-        if (!$this->reviews->contains($review)) {
-            $this->reviews->add($review);
-            $review->addUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReview(Reviews $review): static
-    {
-        if ($this->reviews->removeElement($review)) {
-            $review->removeUser($this);
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Schedules>
      */
     public function getSchedules(): Collection
@@ -232,33 +178,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             if ($schedule->getUser() === $this) {
                 $schedule->setUser(null);
             }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Car>
-     */
-    public function getCars(): Collection
-    {
-        return $this->cars;
-    }
-
-    public function addCar(Car $car): static
-    {
-        if (!$this->cars->contains($car)) {
-            $this->cars->add($car);
-            $car->addUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCar(Car $car): static
-    {
-        if ($this->cars->removeElement($car)) {
-            $car->removeUser($this);
         }
 
         return $this;
@@ -293,4 +212,51 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Car>
+     */
+    public function getCar(): Collection
+    {
+        return $this->car;
+    }
+
+    /**
+     * @return Collection<int, Message>
+     */
+    public function getMessage(): Collection
+    {
+        return $this->message;
+    }
+
+    /**
+     * @return Collection<int, Reviews>
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(Reviews $review): static
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews->add($review);
+            $review->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Reviews $review): static
+    {
+        if ($this->reviews->removeElement($review)) {
+            // set the owning side to null (unless already changed)
+            if ($review->getUser() === $this) {
+                $review->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
 }
