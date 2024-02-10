@@ -1,0 +1,167 @@
+      <!--Start footer area-->
+      <footer class="footer-area">
+        <div class="container">
+          <div class="row">
+
+            <!--Start single 1 footer widget-->
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+              <div class="single-footer-widget martop-minus pd-bottom50">
+                <div class="footer-logo">
+                  <a href="{{ path('app_home') }}">
+                    <img
+                      src="assets/footer/footer-logo.png"
+                      alt="Logo"
+                    />
+                  </a>
+                </div>
+                <div class="our-info">
+                  <p>
+                    Le garage V.Parrot a été ouvert en 2021. Le fondateur,
+                    Vincent Parrot, a plus de 15 ans d'expérience et sa grande
+                    passion pour la mécanique l'a mené à ouvrir son propre
+                    garage et à s'entourer d'une équipe de professionnels efficaces.
+                  </p>
+            
+                </div>
+              </div>
+            </div>
+            <!--End single 1 footer widget-->
+
+            <!--Start single 2 footer widget-->
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+              <div class="single-footer-widget pd-bottom50">
+                <div class="title">
+                  <h3>Derniers commentaires</h3>
+                </div>
+                <ul class="latest-blog">
+                  <li>
+                    <div class="text-holder">
+                      <a href=""
+                        >Un grand merci à cette équipe de professionnels ! Au top !</a
+                      >
+                      <span
+                        ><i class="fa fa-clock-o" aria-hidden="true"></i>06 juin
+                        2023
+                      </span>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="text-holder">
+                      <a href=""
+                        >Ma voiture a été bichonée par l'équipe, j'en suis ravie
+                        !</a
+                      >
+                      <span
+                        ><i class="fa fa-clock-o" aria-hidden="true"></i>12 juin
+                        2023</span
+                      >
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!--End single 2 footer widget-->
+
+            <!--Start single 3 footer widget-->
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+              <div class="single-footer-widget mar-bottom">
+                <div class="title">
+                  <h3>Nous contacter</h3>
+                </div>
+                <ul class="footer-contact-info">
+                  
+                  <li>
+                    <div class="icon-holder">
+                      <span class="flaticon-phone-receiver"></span>
+                    </div>
+                    <div class="text-holder">
+                      <h5><a href="tel:0559770585">05.59.77.05.85</a></h5>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="icon-holder">
+                      <span class="flaticon-envelope"></span>
+                    </div>
+                    <div class="text-holder">
+                      <h5><a href="mailto:v.parrot@gmail.com">v.parrot@gmail.com</h5></a>
+                    </div>
+                  </li>
+                </ul>
+                <li>
+                    <div class="icon-holder">
+                      <span class="flaticon-maps-and-flags"></span>
+                    </div>
+                 
+                  </li>
+                <div class="map">
+                  <a href="https://goo.gl/maps/RMqvStfRxJbAv8846">Nous localiser <br>30 avenue Jean Moulin, 31400 Toulouse</a>
+                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d722.5591033836646!2d1.4410180758767799!3d43.58079179353779!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12aebb87dde547bd%3A0x6eda49950c3a960!2s30%20Av.%20Jean%20Moulin%2C%2031400%20Toulouse!5e0!3m2!1sfr!2sfr!4v1687339250214!5m2!1sfr!2sfr" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+              </div>
+            </div>
+            <!--End single 3 footer widget-->
+
+         <!--Start single 4 footer widget-->
+<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+    <div class="single-footer-widget">
+
+    <style>
+    .footer-widget-title {
+        font-size: 55px; 
+        color: #1a73e8;
+    }
+</style>
+
+        <div class="working-hours">
+            <h3 class="footer-widget-title">Horaires</h3>
+            <ul>
+                {% for day, hours in workingHours %}
+                    <li>{{ day }}: {% if hours %}{{ hours.OpeningTime }} - {{ hours.ClosingTime }}{% else %}Fermé{% endif %}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+<!--End single 4 footer widget-->
+          </div>
+        </div>
+      </footer>
+      <!--End footer area-->
+
+      <!--Start footer bottom area-->
+      <section class="footer-bottom-area">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="copyright-text">
+                <p>
+                  Copyright 2023
+                  <a>krismos64 (Christophe Mostefaoui)</a>,
+                  (Site fictif pour examen ECF hiver 2023 Studi)
+                </p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <ul class="footer-social-links">
+                <li>
+                  <a href="#"><i class="fa fa-facebook"></i></a>
+                </li>
+                <li>
+                  <a href="#"><i class="fa fa-twitter"></i></a>
+                </li>
+                <li>
+                  <a href="#"><i class="fa fa-google-plus"></i></a>
+                </li>
+                <li>
+                  <a href="#"><i class="fa fa-linkedin"></i></a>
+                </li>
+                <li>
+                  <a href="{{ path('app_legal_mentions') }}">Mentions légales</i></a>
+                </li>        
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!--End footer bottom area-->
+    </div>
