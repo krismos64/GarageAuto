@@ -22,7 +22,7 @@ class CarController extends AbstractController
         $days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
         $workingHours = [];
         foreach ($days as $day) {
-        $workingHours[$day] = $schedulesRepository->findWorkingHoursByDay($day);
+        $workingHours[$day] = $schedulesRepository->findByWorkingHoursByDay($day);
      }
 
 

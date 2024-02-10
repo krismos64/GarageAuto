@@ -31,7 +31,7 @@ class ContactController extends AbstractController
         $workingHours = [];
         
         foreach ($days as $day) {
-        $workingHours[$day] = $schedulesRepository->findWorkingHoursByDay($day);
+        $workingHours[$day] = $schedulesRepository->findByWorkingHoursByDay($day);
         }
 
          // Create an empty form to pass to the template

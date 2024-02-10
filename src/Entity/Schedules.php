@@ -22,6 +22,9 @@ class Schedules
     #[ORM\Column(length: 50)]
     private ?string $closing = null;
 
+    #[ORM\Column(length: 100)] 
+    private ?string $workingHoursByDay = null; 
+
     #[ORM\ManyToOne(inversedBy: 'schedules')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
@@ -75,6 +78,17 @@ class Schedules
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+    public function getWorkingHoursByDay(): ?string
+    {
+        return $this->workingHoursByDay;
+    }
+
+    public function setWorkingHoursByDay(?string $workingHoursByDay): static
+    {
+        $this->workingHoursByDay = $workingHoursByDay;
 
         return $this;
     }

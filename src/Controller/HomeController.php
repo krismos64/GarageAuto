@@ -18,7 +18,7 @@ class HomeController extends AbstractController
         $reviews = $reviewsRepository->findAll();
         $workingHours = [];
         foreach ($days as $day) {
-            $workingHours[$day] = $schedulesRepository->findWorkingHoursByDay($day);
+            $workingHours[$day] = $schedulesRepository->findByWorkingHoursByDay($day);
         }
 
         return $this->render('home/index.html.twig', [

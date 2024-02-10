@@ -15,7 +15,7 @@ class TarifsController extends AbstractController
         $days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
         $workingHours = [];
         foreach ($days as $day) {
-        $workingHours[$day] = $schedulesRepository->findWorkingHoursByDay($day);
+        $workingHours[$day] = $schedulesRepository->findByWorkingHoursByDay($day);
      }
         return $this->render('tarifs/index.html.twig', [
             'controller_name' => 'TarifsController',

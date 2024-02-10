@@ -21,7 +21,7 @@ class ReviewsController extends AbstractController
         $workingHours = [];
 
         foreach ($days as $day) {
-            $workingHours[$day] = $schedulesRepository->findWorkingHoursByDay($day);
+            $workingHours[$day] = $schedulesRepository->findByWorkingHoursByDay($day);
         }
 
         $review = new Reviews();

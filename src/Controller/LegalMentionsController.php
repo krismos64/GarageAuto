@@ -16,7 +16,7 @@ class LegalMentionsController extends AbstractController
         $workingHours = [];
         
         foreach ($days as $day) {
-        $workingHours[$day] = $schedulesRepository->findWorkingHoursByDay($day);
+        $workingHours[$day] = $schedulesRepository->findByWorkingHoursByDay($day);
         }
         return $this->render('legal_mentions/index.html.twig', [
             'controller_name' => 'LegalMentionsController',
