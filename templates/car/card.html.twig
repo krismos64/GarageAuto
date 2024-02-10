@@ -1,0 +1,82 @@
+<section>
+    <div class="container">
+        <div class="row justify-content-center">
+            {% for car in cars %}
+                <div class="col-auto col-md-auto cars-filter" id="car" data-year="{{ car.getYear }}" data-kilometer="{{ car.getKm }}" data-price="{{ car.getPrice }}" data-car-id="{{ car.getId() }}">
+                    <div class="card m-3 bg-light event-card" style="width: 320px; height: 450px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                        {% set carImages = car.getImages() %}
+                        {% if carImages is not empty %}
+                            <img src="{{ path('uploads_cars', {'filename': carImages.first().getTitle()}) }}" class="card-img-top" style="height: 200px; object-fit: cover; border-top-left-radius: 10px; border-top-right-radius: 10px;" alt="Car Image">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ car.getBrand() }} {{ car.getModel() }}</h5>
+                            <p class="card-text"><strong>Année:</strong> {{ car.getYear() }}</p>
+                            <p class="card-text"><strong>Kilométrage:</strong> {{ car.getKm() }} km</p>
+                            <p class="card-text text-primary"><strong>Prix:</strong> {{ car.getPrice() }}€</p>
+                            <p class="card-text">
+                            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#descriptionModal{{ car.getId() }}">
+                             Description
+                            </button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+<!-- Modal for description and images -->
+<div class="modal fade" id="descriptionModal{{ car.getId() }}" tabindex="-1" role="dialog" aria-labelledby="descriptionModalLabel{{ car.getId() }}" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="descriptionModalLabel{{ car.getId() }}">{{ car.getBrand() }} {{ car.getModel() }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <div class="modal-body">
+                <!-- Carousel -->
+                <div id="carouselExample{{ car.getId() }}" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        {% for image in car.getImages() %}
+                            <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                <img src="{{ path('uploads_cars', {'filename': image.getTitle()}) }}" class="d-block w-100" alt="Car Image">
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample{{ car.getId() }}" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample{{ car.getId() }}" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+
+                <!-- Description -->
+                <p id="modalDescription{{ car.getId() }}">{{ car.getDescription()|raw }}</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Réduire</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const links = document.querySelectorAll('.card-text[data-bs-toggle="modal"]');
+
+        links.forEach(link => {
+            link.addEventListener('click', function() {
+                const carId = this.closest('.cars-filter').dataset.carId;
+                const modal = new bootstrap.Modal(document.getElementById('descriptionModal' + carId));
+                modal.show();
+            });
+        });
+    });
+</script>

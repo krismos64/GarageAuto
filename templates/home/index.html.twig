@@ -1,0 +1,355 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Garage V.Parrot{% endblock %}
+
+{% block body %}
+
+<section class="welcome-area sec-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="text-holder">
+                    <div class="sec-title">
+                        <h1>Bienvenue chez V.Parrot<span> Garage auto et vente de véhicules d'occasion.</span></h1>
+                        <span class="border"></span>
+                    </div>
+                    <div class="text-box">
+                        <p>
+                            Le garage automobile V.Parrot a été créé en 2021. Notre équipe de mécaniciens automobiles intervient sur tous types de véhicules de toutes marques et de tous modèles pour les particuliers et les professionnels. Confiez l’entretien, la réparation et le dépannage de votre voiture ou votre utilitaire à notre garage auto.
+                        </p>
+                        <p>Nous vendons également des véhicules d'occasion vérifiés et testés par notre équipe.</p>
+                        <div class="name-signature">
+                    <div class="name">
+                      <h3>Vincent Parrot, <span>Fondateur</span></h3>
+                    </div>
+                    <div class="signature">
+                      <img src="assets/icon/signature.png" alt="Signature de V.Parrot" />
+                    </div>
+                  </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                        <div class="img-holder wow slideInRight text-center">
+                            <img src="{{ asset('assets/resources/welcome.jpg') }}" alt="La photo de V.Parrot" />
+                            <div class="inner-content">
+                                <h3>Nous prenons le plus grand soin de votre véhicule</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End welcome area -->
+
+ <!--Start features area-->
+      <section class="features-area">
+        <div class="container">
+          <div class="row">
+
+            <!--Start signle features item-->
+            <div class="col-md-4">
+              <div class="single-features-item">
+                <div
+                  class="overlay"
+                  style="background-image: url(assets/resources/single-featured-bg.jpg);"
+                >
+                  <div class="box">
+                    <div class="box-content">
+                      <a href="{{ path('app_contact') }}">En savoir plus</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="icon-box">
+                  <span class="flaticon-document"></span>
+                </div>
+                <div class="text-box">
+                  <h3>Demandez un devis</h3>
+                  <p>
+                    Bénéficiez gratuitement d'un devis sur mesure.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!--End single features item-->
+
+            <!--Start single features item-->
+            <div class="col-md-4">
+              <div class="single-features-item">
+                <div
+                  class="overlay"
+                  style="background-image: url(assets/resources/single-featured-bg.jpg);"
+                >
+                  <div class="box">
+                    <div class="box-content">
+                      <a href="{{ path('app_contact') }}">En savoir plus</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="icon-box">
+                  <span class="flaticon-calendar"></span>
+                </div>
+                <div class="text-box">
+                  <h3>Dépannage</h3>
+                  <p>
+                  Indiquez l'emplacement de votre véhicule et précisez-nous
+                  vos disponibilités pour déclencher une intervention.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!--End single features item-->
+
+            <!--Start single features item-->
+            <div class="col-md-4">
+              <div class="single-features-item">
+                <div
+                  class="overlay"
+                  style="background-image: url(assets/resources/single-featured-bg.jpg);"
+                >
+                  <div class="box">
+                    <div class="box-content">
+                      <a href="{{ path('app_contact') }}">En savoir plus</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="icon-box">
+                  <span class="flaticon-car-repair"></span>
+                </div>
+                <div class="text-box">
+                  <h3>Faites réparer votre voiture</h3>
+                  <p>
+                   Fini l'attente dans les ateliers de réparation, 
+                   nous nous déplaçons sur rendez-vous.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+<!--Start project area-->
+      <section class="project-area">
+        <div class="container-fluid">
+          <div class="row mar0">
+
+            <!--Start 1 single project item-->
+            <div class="single-project-item span-20per">
+              <div class="img-holder">
+                <img src="images/projects/1.jpg" alt="Changement de pneus" />
+                <div class="overlay-style-one">
+                  <div class="box">
+                    <div class="content">
+                      <a
+                        class="zoom"
+                        href="uploads/projects/1.jpg"
+                        title="Garage V.Parrot"
+                      >
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                      </a>
+                      <div class="bottom">
+                        <a href="{{ path('app_services') }}"
+                          >Pneus</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--End 1 single project item-->
+
+            <!--Start 2 single project item-->
+            <div class="single-project-item span-20per">
+              <div class="img-holder">
+                <img src="images/projects/2.jpg" alt="Boutons climatisations" />
+                <div class="overlay-style-one">
+                  <div class="box">
+                    <div class="content">
+                      <a
+                        class="zoom"
+                        href="images/projects/2.jpg"
+                        title="Garage V.Parrot"
+                      >
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                      </a>
+                      <div class="bottom">
+                        <a href="{{ path('app_services') }}">Entretien climatisation</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--End 2 single project item-->
+
+            <!--Start 3 single project item-->
+            <div class="single-project-item span-20per">
+              <div class="img-holder">
+                <img src="images/projects/3.jpg" alt="Travaux sur carrosserie" />
+                <div class="overlay-style-one">
+                  <div class="box">
+                    <div class="content">
+                      <a
+                        class="zoom"
+                        href="images/projects/3.jpg"
+                        title="Garage V.Parrot"
+                      >
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                      </a>
+                      <div class="bottom">
+                        <a href="{{ path('app_services') }}">Carrosserie</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--End 3 single project item-->
+
+            <!--Start 4 single project item-->
+            <div class="single-project-item span-20per">
+              <div class="img-holder">
+                <img src="images/projects/4.jpg" alt="Plaquette de freins" />
+                <div class="overlay-style-one">
+                  <div class="box">
+                    <div class="content">
+                      <a
+                        class="zoom"
+                        href="images/projects/4.jpg"
+                        title="Garage V.Parrot"
+                      >
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                      </a>
+                      <div class="bottom">
+                        <a href="{{ path('app_services') }}">Freinage</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--End 4 single project item-->
+
+            <!--Start 5 single project item-->
+            <div class="single-project-item span-20per">
+              <div class="img-holder">
+                <img src="images/projects/5.jpg" alt="Huile moteur" />
+                <div class="overlay-style-one">
+                  <div class="box">
+                    <div class="content">
+                      <a
+                        class="zoom"
+                        href="images/projects/5.jpg"
+                        title="Garage V.Parrot"
+                      >
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                      </a>
+                      <div class="bottom">
+                        <a href="{{ path('app_services') }}">Vidange</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--End 5 single project item-->
+
+          </div>
+        </div>
+      </section>
+      <!--End project area-->
+
+      <!--Start slogan area-->
+      <section class="slogan-area">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <div
+                class="inner-content wow fadeInUp"
+                data-wow-delay="200ms"
+                data-wow-duration="1500ms"
+              >
+                <div class="title pull-left">
+                  <h1>Nous nous engageons à vous proposer les meilleurs tarifs possibles.</h1>
+                </div>
+                <div class="button pull-right">
+                <a class="thm-btn" href="{{ path('app_contact') }}">Obtenir un devis</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!--End slogan area-->
+
+      <style>
+    h1 {
+        text-align: center;
+        color: #233588; 
+        margin-top: 50px;
+        line-height: 1.5;
+
+         }
+       </style>
+<h1>Les commentaires de nos clients :</h1>
+
+<!-- Start reviews section -->
+
+<section class="reviews-section sec-padding">
+    <style>
+        .review-card {
+            border: 3px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: box-shadow 0.3s;
+        }
+
+        .review-card:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .star-rating {
+            color: #FFD700; 
+        }
+
+        .review-text {
+            color: #233588; 
+        }
+    </style>
+
+    <div class="container">
+        <div class="row">
+            {% for review in reviews %}
+                <div class="col-md-6 mb-4"> 
+                    <div class="card review-card">
+                        <div class="card-body">
+                            <p class="card-text review-text">{{ review.getMessage() }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <strong>{{ review.getFirstname() }} {{ review.getLastname() }}</strong>
+                            <br>
+                            <div class="star-rating">
+                                {% for i in 1..5 %}
+                                    {% if i <= review.getRating() %}
+                                        <span class="star">&#9733;</span>
+                                    {% else %}
+                                        <span class="star">&#9734;</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <br>
+                            <span class="text-muted">Publié le {{ review.getPublishedAt()|date('d/m/Y') }}</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- End reviews section -->
+
+{% endblock %}

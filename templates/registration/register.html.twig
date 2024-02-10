@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+    <section class="container my-5">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title text-center">Inscription</h1>
+
+                        {{ form_start(registrationForm, {'attr': {'class': 'form'}}) }}
+                            <div class="mb-3">
+                                <legend>Mon identité</legend>
+                                {{ form_row(registrationForm.lastname, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_row(registrationForm.firstname, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_row(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                            {{ form_row(registrationForm.plainPassword, {
+                                'label': 'Password',
+                                'attr': {'class': 'form-control'}
+                            }) }}
+                            <div class="form-check mb-3">
+                                {{ form_row(registrationForm.RGPDConsent, {'attr': {'class': 'form-check-input'}}) }}
+                                {{ form_label(registrationForm.RGPDConsent, 'J\'accepte les termes et conditions', {'label_attr': {'class': 'form-check-label'}}) }}
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">M'inscrire</button>
+                            <a href="{{ path('app_login') }}" class="btn btn-secondary btn-block">Me connecter</a>
+                        {{ form_end(registrationForm) }}
+                    </div>
+                </div>            
+            </div>
+        </div>
+    </section>
+{% endblock %}

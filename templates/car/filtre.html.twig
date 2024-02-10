@@ -1,0 +1,117 @@
+<div class="container-sm text-center">
+ <style>
+    h1 {
+        text-align: center;
+        color: #233588; 
+        margin-top: 50px;
+        line-height: 1.5;
+         }
+       </style>
+    <h1 class="text-center my-4">Nos véhicules d'occasion</h1>
+    <section>
+		<div class="container my-2">
+			<div class="row justify-content-center">
+				<!-- Kilométrage maximum -->
+				<div class="col-md-3 mb-4">
+					<div class="text-center">
+						<label for="kilometer-max" class="form-label">Kilométrage :</label>
+					</div>
+					<input type="range" class="form-range" name="kilometer-max" id="kilometer-max" min="0" max="180000" step="5000" value="180000">
+					<div class="text-center" style="font-size:1.4rem;">
+						<span id="kilometer-max-value" class="badge bg-success">180000 km</span>
+					</div>
+				</div>
+				<!-- Prix maximum -->
+				<div class="col-md-3 mb-4">
+					<div class="text-center">
+						<label for="price-max-input" class="form-label">Prix :</label>
+					</div>
+					<input type="range" class="form-range" name="price-max-input" id="price-max-input" min="0" max="100000" step="500" value="100000">
+					<div class="text-center" style="font-size:1.4rem;">
+						<span id="price-max-value" class="badge bg-success">100000 €</span>
+					</div>
+				</div>
+				<!-- Année maximum -->
+				<div class="col-md-3 mb-4">
+					<div class="text-center">
+						<label for="year-max-input" class="form-label">Année :</label>
+					</div>
+					<input type="range" class="form-range" name="year-max-input" id="year-max-input" min="1960" max="2023" value="2023">
+					<div class="text-center" style="font-size:1.4rem;">
+						<span id="year-max-value" class="badge bg-success">2023</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<div class="row justify-content-around justify-items-center">
+		<div class="row">
+			<button id="reset-button" class="btn btn-success col-4 my-2 mx-auto">Réinitialiser</button>
+		</div>
+	</div>
+</div>
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    
+    // Éléments des curseurs
+    const kilometerSlider = document.getElementById("kilometer-max");
+    const priceSlider = document.getElementById("price-max-input");
+    const yearSlider = document.getElementById("year-max-input");
+
+    // Éléments pour afficher les valeurs actuelles des curseurs
+    const kilometerDisplay = document.getElementById("kilometer-max-value");
+    const priceDisplay = document.getElementById("price-max-value");
+    const yearDisplay = document.getElementById("year-max-value");
+
+    const resetButton = document.getElementById("reset-button");
+
+    // Mise à jour des valeurs et affichage des véhicules correspondants
+    function updateFilter() {
+        const maxKilometer = parseInt(kilometerSlider.value, 10);
+        const maxPrice = parseInt(priceSlider.value, 10);
+        const maxYear = parseInt(yearSlider.value, 10);
+
+        kilometerDisplay.textContent = `${maxKilometer} km`;
+        priceDisplay.textContent = `${maxPrice} €`;
+        yearDisplay.textContent = maxYear;
+
+        // Filtrage des véhicules
+        const cars = document.querySelectorAll(".cars-filter");
+        cars.forEach(car => {
+            const kilometer = parseInt(car.getAttribute("data-kilometer"), 10);
+            const price = parseInt(car.getAttribute("data-price"), 10);
+            const year = parseInt(car.getAttribute("data-year"), 10);
+
+            if (kilometer <= maxKilometer && price <= maxPrice && year <= maxYear) {
+                car.style.display = "";
+            } else {
+                car.style.display = "none";
+            }
+        });
+    }
+    kilometerSlider.addEventListener("input", updateFilter);
+    priceSlider.addEventListener("input", updateFilter);
+    yearSlider.addEventListener("input", updateFilter);
+
+    // Fonction de réinitialisation
+    function resetFilters() {
+        kilometerSlider.value = 180000;
+        priceSlider.value = 100000;
+        yearSlider.value = 2023;
+
+        kilometerDisplay.textContent = "180000 km";
+        priceDisplay.textContent = "100000 €";
+        yearDisplay.textContent = "2023";
+
+        const cars = document.querySelectorAll(".cars-filter");
+        cars.forEach(car => car.style.display = "");
+
+        updateFilter();
+    }
+    resetButton.addEventListener("click", resetFilters);
+    updateFilter();
+});
+</script>

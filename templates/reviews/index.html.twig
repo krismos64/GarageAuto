@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les avis{% endblock %}
+
+{% block body %}
+<style>
+    h1 {
+        text-align: center;
+        color: #233588;
+        margin-top: 50px;
+        line-height: 1.5;
+    }
+</style>
+<h1>Laissez-nous un avis après votre passage</h1>
+
+<!-- Start review form section -->
+<section class="review-form-section sec-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mx-auto mb-4">
+                <div class="card review-form-card">
+                    <div class="card-body">
+                        <h2>Laissez votre avis</h2>
+                        <div class="review-form">
+                            <form method="post" action="{{ path('app_reviews') }}">
+                                <input type="text" name="firstname" placeholder="Votre prénom" required>
+                                <input type="text" name="lastname" placeholder="Votre nom" required>
+                                <textarea name="message" placeholder="Votre commentaire" required></textarea>
+                                <div class="star-rating">
+                                    {% for i in 5..1 %}
+                                        <input type="radio" name="rating" value="{{ i }}" id="star{{ i }}">
+                                        <label for="star{{ i }}">&#9733;</label>
+                                    {% endfor %}
+                                </div>
+                                <button type="submit" class="submit-btn">Soumettre</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End review form section -->
+
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+{% endfor %}
+
+<style>
+    h1 {
+        text-align: center;
+        color: #233588;
+        margin-top: 50px;
+        line-height: 1.5;
+    }
+</style>
+<h1>Les commentaires de nos clients :</h1>
+
+<!-- Start reviews section -->
+<section class="reviews-section sec-padding">
+    <div class="container">
+        <div class="row">
+            {% for review in reviews %}
+                <div class="col-md-6 mb-4">
+                    <div class="card review-card">
+                        <div class="card-body">
+                            <p class="card-text review-text">{{ review.getMessage() }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <strong>{{ review.getFirstname() }} {{ review.getLastname() }}</strong>
+                            <br>
+                            <div class="star-rating">
+                                {% for i in 1..5 %}
+                                    {% if i <= review.getRating() %}
+                                        <span class="star">&#9733;</span>
+                                    {% else %}
+                                        <span class="star">&#9734;</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <br>
+                            <span class="text-muted">Publié le {{ review.getPublishedAt()|date('d/m/Y') }}</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- End reviews section -->
+
+{% endblock %}
