@@ -2,11 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Messages;
-use App\Repository\MessagesRepository;
+use App\Entity\Message;
 use App\Repository\SchedulesRepository;
 use App\Form\ContactType;
 use App\Repository\CarRepository;
+use App\Repository\MessageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +19,7 @@ class ContactController extends AbstractController
     private $entityManager;
     private $contactRepository;
 
-    public function __construct(EntityManagerInterface $entityManager, MessagesRepository $contactRepository)
+    public function __construct(EntityManagerInterface $entityManager, MessageRepository $contactRepository)
     {
         $this->entityManager = $entityManager;
         $this->contactRepository = $contactRepository;
@@ -35,7 +35,7 @@ class ContactController extends AbstractController
         }
 
          // Create an empty form to pass to the template
-    $contact = new Messages();
+    $contact = new Message();
     $form = $this->createForm(ContactType::class, $contact);
 
         return $this->render('contact/index.html.twig', [
@@ -46,7 +46,7 @@ class ContactController extends AbstractController
     }
     public function new(Request $request, SchedulesRepository $openingDaysRepository, CarRepository $usedCarRepository ): Response
     {
-        $contact = new Messages();
+        $contact = new Message();
         $form = $this->createForm(ContactType::class, $contact, [
         'label' => [
         'firstName' => 'Prénom',
@@ -90,7 +90,7 @@ class ContactController extends AbstractController
     }
 
     #[Route('/admin/contact/approve/{id}', name: 'admin_contact_approve')]
-    public function approveContact(Messages $contact): Response
+    public function approveContact(Message $contact): Response
     {
         $contact->setApproved(true);
         $this->entityManager->flush();
@@ -99,7 +99,7 @@ class ContactController extends AbstractController
     }
 
     #[Route('/admin/contact/disapprove/{id}', name: 'admin_contact_disapprove')]
-    public function disapproveContact(Messages $contact): Response
+    public function disapproveContact(Message $contact): Response
     {
         $contact->setApproved(false);
         $this->entityManager->flush();
