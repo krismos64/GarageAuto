@@ -28,7 +28,7 @@ class ReviewsFixtures extends Fixture
         $review2->setContent('Je suis très satisfait, ma formule 1 avit un problème pour accélérer, Mr Parrot a su trouver le problème rapidement je recommande ce garage!');
         $review2->setCreatedAt (\DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2023-11-14 11:00:00')); 
         $review2->setIsApproved(true);
-        $manager->persist($review);
+        $manager->persist($review2);
 
         $review3=new Reviews();
         $review3->setFirstname('Emilia');
@@ -38,7 +38,7 @@ class ReviewsFixtures extends Fixture
         $review3->setContent('Génial, un point en moins pour la fermeture le dimanche !');
         $review3->setCreatedAt (\DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2023-09-10 12:00:00')); 
         $review3->setIsApproved(true);
-        $manager->persist($review);
+        $manager->persist($review3);
 
         $review4=new Reviews();
         $review4->setFirstname('Lebron');
@@ -48,7 +48,7 @@ class ReviewsFixtures extends Fixture
         $review4->setContent('Le meilleur garage au monde !');
         $review4->setCreatedAt (\DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2024-01-31 12:00:00')); 
         $review4->setIsApproved(true);
-        $manager->persist($review);
+        $manager->persist($review4);
 
         $review5=new Reviews();
         $review5->setFirstname('Elon');
@@ -58,7 +58,7 @@ class ReviewsFixtures extends Fixture
         $review5->setContent('Ils ont pu réparer ma fusée en 5minutes, de vrais pro !');
         $review5->setCreatedAt (\DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2024-11-05 12:00:00')); 
         $review5->setIsApproved(true);
-        $manager->persist($review);
+        $manager->persist($review5);
 
         $review6=new Reviews();
         $review6->setFirstname('Luc');
@@ -68,7 +68,7 @@ class ReviewsFixtures extends Fixture
         $review6->setContent('Sympathique mais locaux un peu petits...');
         $review6->setCreatedAt (\DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2023-12-28 12:00:00')); 
         $review6->setIsApproved(true);
-        $manager->persist($review);
+        $manager->persist($review6);
 
         $manager->flush();
     }
