@@ -6,14 +6,6 @@ use App\Entity\Schedules;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
- * @extends ServiceEntityRepository<Schedules>
- *
- * @method Schedules|null find($id, $lockMode = null, $lockVersion = null)
- * @method Schedules|null findOneBy(array $criteria, array $orderBy = null)
- * @method Schedules[]    findAll()
- * @method Schedules[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
 class SchedulesRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -21,28 +13,19 @@ class SchedulesRepository extends ServiceEntityRepository
         parent::__construct($registry, Schedules::class);
     }
 
-//    /**
-//     * @return Schedules[] Returns an array of Schedules objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('s.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Schedules
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    /**
+     * Get working hours for a specific day.
+     *
+     * @param string $day
+     * @return array|null
+     */
+    public function findWorkingHoursByDay(string $day): ?array
+    {
+        return $this->createQueryBuilder('s')
+            ->select('s.OpeningTime', 's.ClosingTime')
+            ->where('s.Day = :day')
+            ->setParameter('day', $day)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

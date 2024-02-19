@@ -27,7 +27,7 @@ class RegistrationController extends AbstractController
         $days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
         
         foreach ($days as $day) {
-            $workingHours[$day] = $schedulesRepository->findByWorkingHoursByDay($day);
+            $workingHours[$day] = $schedulesRepository->findWorkingHoursByDay($day);
         }
 
         if ($form->isSubmitted() && $form->isValid()) {

@@ -18,7 +18,7 @@ class ServicesController extends AbstractController
         $days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
         $workingHours = [];
         foreach ($days as $day) {
-        $workingHours[$day] = $schedulesRepository->findByWorkingHoursByDay($day);
+        $workingHours[$day] = $schedulesRepository->findWorkingHoursByDay($day);
      }
         // Rendre la vue Twig en transmettant la liste des services
         return $this->render('services/index.html.twig', [

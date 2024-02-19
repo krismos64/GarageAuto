@@ -13,20 +13,16 @@ class Schedules
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $day = null;
+    #[ORM\Column(length: 255)]
+    private ?string $Day = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $opening = null;
+    #[ORM\Column(length: 255)]
+    private ?string $OpeningTime = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $closing = null;
+    #[ORM\Column(length: 255)]
+    private ?string $ClosingTime = null;
 
-    #[ORM\Column(length: 100)] 
-    private ?string $workingHoursByDay = null; 
-
-    #[ORM\ManyToOne(inversedBy: 'schedules')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(inversedBy: 'modify_schedules')]
     private ?User $user = null;
 
     public function getId(): ?int
@@ -36,36 +32,36 @@ class Schedules
 
     public function getDay(): ?string
     {
-        return $this->day;
+        return $this->Day;
     }
 
-    public function setDay(string $day): static
+    public function setDay(string $Day): static
     {
-        $this->day = $day;
+        $this->Day = $Day;
 
         return $this;
     }
 
-    public function getOpening(): ?string
+    public function getOpeningTime(): ?string
     {
-        return $this->opening;
+        return $this->OpeningTime;
     }
 
-    public function setOpening(string $opening): static
+    public function setOpeningTime(string $OpeningTime): static
     {
-        $this->opening = $opening;
+        $this->OpeningTime = $OpeningTime;
 
         return $this;
     }
 
-    public function getClosing(): ?string
+    public function getClosingTime(): ?string
     {
-        return $this->closing;
+        return $this->ClosingTime;
     }
 
-    public function setClosing(string $closing): static
+    public function setClosingTime(string $ClosingTime): static
     {
-        $this->closing = $closing;
+        $this->ClosingTime = $ClosingTime;
 
         return $this;
     }
@@ -78,17 +74,6 @@ class Schedules
     public function setUser(?User $user): static
     {
         $this->user = $user;
-
-        return $this;
-    }
-    public function getWorkingHoursByDay(): ?string
-    {
-        return $this->workingHoursByDay;
-    }
-
-    public function setWorkingHoursByDay(?string $workingHoursByDay): static
-    {
-        $this->workingHoursByDay = $workingHoursByDay;
 
         return $this;
     }
