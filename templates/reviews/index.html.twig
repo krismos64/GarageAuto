@@ -25,7 +25,7 @@
                             <form method="post" action="{{ path('app_reviews') }}">
                                 <input type="text" name="firstname" placeholder="Votre prénom" required>
                                 <input type="text" name="lastname" placeholder="Votre nom" required>
-                                <textarea name="message" placeholder="Votre commentaire" required></textarea>
+                                <textarea name="content" placeholder="Votre commentaire" required></textarea>
                                 <div class="star-rating">
                                     {% for i in 5..1 %}
                                         <input type="radio" name="rating" value="{{ i }}" id="star{{ i }}">
@@ -67,7 +67,7 @@
                 <div class="col-md-6 mb-4">
                     <div class="card review-card">
                         <div class="card-body">
-                            <p class="card-text review-text">{{ review.getMessage() }}</p>
+                            <p class="card-text review-text">{{ review.getContent() }}</p>
                         </div>
                         <div class="card-footer">
                             <strong>{{ review.getFirstname() }} {{ review.getLastname() }}</strong>
@@ -82,7 +82,7 @@
                                 {% endfor %}
                             </div>
                             <br>
-                            <span class="text-muted">Publié le {{ review.getPublishedAt()|date('d/m/Y') }}</span>
+                            <span class="text-muted">Publié le {{ review.getCreatedAt()|date('d/m/Y') }}</span>
                         </div>
                     </div>
                 </div>

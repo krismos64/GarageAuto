@@ -29,10 +29,10 @@ class ReviewsType extends AbstractType
             ->add('rating', IntegerType::class, [
                 'label' => 'Note sur 5',
             ])
-            ->add('message', TextareaType::class, [
+            ->add('content', TextareaType::class, [
                 'label' => 'Contenu du message',
             ])
-            ->add('publishedAt', DateTimeType::class, [
+            ->add('createdAt', DateTimeType::class, [
                 'label' => 'Date de publication',
             ])
             ->add('isApproved', CheckboxType::class, [

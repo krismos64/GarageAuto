@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Messages;
+use App\Entity\Message;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -35,7 +35,7 @@ class ContactType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('content', null, [
+            ->add('message', null, [
                 'label' => 'Votre demande',
             ]);
     }
@@ -43,7 +43,7 @@ class ContactType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Messages::class,
+            'data_class' => Message::class,
         ]);
     }
 }
