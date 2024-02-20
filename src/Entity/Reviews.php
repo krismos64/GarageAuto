@@ -32,8 +32,6 @@ class Reviews
     #[ORM\Column]
     private ?string $lastname = null;
 
-    #[ORM\Column]
-    private ?string $email = null;
 
     #[ORM\ManyToOne(inversedBy: 'reviews')]
     #[ORM\JoinColumn(nullable: true)]
@@ -143,16 +141,5 @@ class Reviews
 
         return $this;
     }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
+    
     }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-}
