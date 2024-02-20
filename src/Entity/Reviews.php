@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ReviewsRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ReviewsRepository::class)]
 class Reviews
@@ -15,9 +16,11 @@ class Reviews
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: "La note est requise")]
     private ?int $rating = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message: "Le champ commentaire est requis")]
     private ?string $content = null;
 
     #[ORM\Column]
@@ -27,9 +30,11 @@ class Reviews
     private ?bool $isApproved = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: "Le prénom est requis")]
     private ?string $firstname = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: "Le nom de famille est requis")]
     private ?string $lastname = null;
 
 

@@ -28,6 +28,13 @@ class ReviewsController extends AbstractController
         $form = $this->createForm(ReviewsType::class, $review);
         $form->handleRequest($request);
 
+        $errors = [];
+        if ($form->isSubmitted() && !$form->isValid()) {
+            foreach ($form->getErrors(true, false) as $error) {
+                $errors[] = $error->getMessage();
+            }
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($review);
@@ -35,7 +42,6 @@ class ReviewsController extends AbstractController
 
             $this->addFlash('success', 'Votre avis a été soumis avec succès! Il sera publié après approbation.');
 
-            // Vous pouvez rediriger vers la même page pour éviter de renvoyer le formulaire avec un rechargement de la page.
             return $this->redirectToRoute('app_reviews');
         }
 
@@ -44,6 +50,8 @@ class ReviewsController extends AbstractController
             'workingHours' => $workingHours,
             'reviews' => $reviews,
             'form' => $form->createView(),
+            'errors' => $errors,
         ]);
     }
+    
 }

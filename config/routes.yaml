@@ -7,3 +7,8 @@ controllers:
 uploads_cars:
   path: /uploads/Cars/{filename}
   controller: App\Controller\CarController::uploadsCars
+
+app_reviews:
+  path: /avis-clients
+  controller: 'App\Controller\ReviewsController::index'
+  methods: [GET, POST]
