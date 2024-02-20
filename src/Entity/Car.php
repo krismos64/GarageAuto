@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CarRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: CarRepository::class)]
 class Car
@@ -35,9 +36,13 @@ class Car
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(inversedBy: 'car')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'car')]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
+
+    #[ORM\OneToMany(targetEntity: CarImage::class, mappedBy: 'car')]
+    private $carImages;
+
 
     public function getId(): ?int
     {
@@ -139,4 +144,38 @@ class Car
 
         return $this;
     }
+
+    public function __construct()
+    {
+        $this->carImages = new ArrayCollection();
+    }
+
+    public function getCarImages()
+    {
+        return $this->carImages;
+    }
+
+    public function addCarImage(CarImage $carImage)
+    {
+        if (!$this->carImages->contains($carImage)) {
+            $this->carImages[] = $carImage;
+            $carImage->setCar($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCarImage(CarImage $carImage)
+    {
+        if ($this->carImages->removeElement($carImage)) {
+
+            if ($carImage->getCar() === $this) {
+                $carImage->setCar(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }

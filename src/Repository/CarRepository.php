@@ -21,6 +21,15 @@ class CarRepository extends ServiceEntityRepository
         parent::__construct($registry, Car::class);
     }
 
+    public function findAllWithImages()
+    {
+        return $this->createQueryBuilder('c')
+            ->leftJoin('c.carImages', 'ci')
+            ->addSelect('ci')
+            ->getQuery()
+            ->getResult();
+    }
+}
 //    /**
 //     * @return Car[] Returns an array of Car objects
 //     */
@@ -45,4 +54,4 @@ class CarRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
-}
+

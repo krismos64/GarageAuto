@@ -4,7 +4,7 @@
             {% for car in cars %}
                 <div class="col-auto col-md-auto cars-filter" id="car" data-year="{{ car.getYear }}" data-kilometer="{{ car.getKm }}" data-price="{{ car.getPrice }}" data-car-id="{{ car.getId() }}">
                     <div class="card m-3 bg-light event-card" style="width: 320px; height: 450px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-                        {% set carImages = car.getImages() %}
+                        {% set carImages = car.getCarImages() %}
                         {% if carImages is not empty %}
                             <img src="{{ path('uploads_cars', {'filename': carImages.first().getTitle()}) }}" class="card-img-top" style="height: 200px; object-fit: cover; border-top-left-radius: 10px; border-top-right-radius: 10px;" alt="Car Image">
                         {% endif %}
@@ -35,7 +35,7 @@
                 <!-- Carousel -->
                 <div id="carouselExample{{ car.getId() }}" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
-                        {% for image in car.getImages() %}
+                        {% for image in car.getCarImages() %}
                             <div class="carousel-item {% if loop.first %}active{% endif %}">
                                 <img src="{{ path('uploads_cars', {'filename': image.getTitle()}) }}" class="d-block w-100" alt="Car Image">
                             </div>
