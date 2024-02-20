@@ -23,7 +23,7 @@ class Service
     private ?string $description = null;
 
     #[ORM\ManyToOne(inversedBy: 'services')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
 
     #[ORM\OneToMany(targetEntity: ServiceImage::class, mappedBy: 'service')]
