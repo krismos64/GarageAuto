@@ -26,7 +26,7 @@ class DashboardController extends AbstractDashboardController
     )
     {
     }
-    #[IsGranted('ROLE_SUPER_ADMIN')]
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {

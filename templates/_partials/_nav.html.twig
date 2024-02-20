@@ -42,10 +42,12 @@
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
               {% if app.user %}
-                {% if is_granted('ROLE_ADMIN') %}
-                  <li class="nav-item connexion-button">
-                    <a class="nav-link" href="{{ path('admin') }}">Espace pro</a>
-                  </li>
+                  {% if is_granted('ROLE_ADMIN')%}
+        <div class="connexion-button pull-right">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('admin') }}">Espace pro</a>
+            </li>
+        </div>
                 {% endif %}
                 <div class="connexion-button pull-right">
                   <li class="nav-item">
