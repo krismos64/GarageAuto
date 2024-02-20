@@ -7,6 +7,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 
 class CarImageCrudController extends AbstractCrudController
 {
@@ -19,6 +20,7 @@ class CarImageCrudController extends AbstractCrudController
     {
         return [
             TextField::new('title')->setLabel('Titre image'),
+            AssociationField::new('car')->setLabel('Voiture'),
             // Add other fields for CarImage entity...
         ];
     }

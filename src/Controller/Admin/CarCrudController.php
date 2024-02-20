@@ -20,19 +20,16 @@ class CarCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('name')->setLabel('Nom de la voiture'),
+            TextField::new('title')->setLabel('Nom de la voiture'),
             TextField::new('km')->setLabel('Kilométrage'),
             TextField::new('year')->setLabel('Année'),
             TextField::new('brand')->setLabel('Marque'),
             TextField::new('model')->setLabel('Modèle'),
             TextField::new('price')->setLabel('Prix'),
             TextEditorField::new('description')->setLabel('Description'),
-            AssociationField::new('images')
-                ->setFormTypeOptions([
-                    'by_reference' => false,
-                ])->setLabel('Images de la voiture'),
             CollectionField::new('images')
-                ->onlyOnForms()->setLabel('Images de la voiture (Collection)'),
+            ->onlyOnForms()
+            ->setLabel('Images de la voiture'),
         ];
     }
 

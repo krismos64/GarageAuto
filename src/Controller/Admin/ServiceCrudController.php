@@ -21,10 +21,9 @@ class ServiceCrudController extends AbstractCrudController
         return [
             TextField::new('Title',)->setLabel('Titre du service'),
             TextField::new('Description',)->setLabel('Description du service'),
-            AssociationField::new('images')
-                ->setFormTypeOptions([
-                    'by_reference' => false,
-                ])->setLabel('Images des services'),
+            CollectionField::new('serviceImages')
+            ->onlyOnForms()
+            ->setLabel('Images des services'),
         ];
     }
 

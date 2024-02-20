@@ -23,9 +23,9 @@ class ReviewsCrudController extends AbstractCrudController
             TextField::new('Firstname')->setLabel('Prénom'),
             TextField::new('Lastname')->setLabel('Nom'),
             EmailField::new('Email')->setLabel('Adresse Email'),
-            TextField::new('Message', 'Contenu du message'),
+            TextField::new('Content', 'Contenu du message'),
             IntegerField::new('Rating')->setLabel('Note sur 5'),
-            DateField::new('PublishedAt')->setLabel('Date de publication'),
+            DateField::new('CreatedAt')->setLabel('Date de publication'),
             BooleanField::new('isApproved', 'Validation')
                     ->renderAsSwitch()
         ];

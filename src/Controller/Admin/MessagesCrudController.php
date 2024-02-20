@@ -2,8 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Contact;
-use App\Entity\Messages;
+use App\Entity\Message;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -17,7 +16,7 @@ class MessagesCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Messages::class;
+        return Message::class;
     }
 
     public function configureActions(Actions $actions): Actions

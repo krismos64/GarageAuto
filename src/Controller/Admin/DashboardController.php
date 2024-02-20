@@ -5,7 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\User;
 use App\Entity\Car;
 use App\Entity\CarImage;
-use App\Entity\Messages;
+use App\Entity\Message;
 use App\Entity\Reviews;
 use App\Entity\Schedules;
 use App\Entity\Service;
@@ -59,7 +59,7 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Aperçu des avis', 'fas fa-eye', Reviews::class)
         ]);
 
-        yield  MenuItem::linkToCrud('Messages clients', 'fas fa-comments', Messages::class);
+        yield  MenuItem::linkToCrud('Messages clients', 'fas fa-comments', Message::class);
 
 
         if ($this->isGranted('ROLE_SUPER_ADMIN')) {

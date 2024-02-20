@@ -22,7 +22,7 @@ class Car
     private ?string $model = null;
 
     #[ORM\Column]
-    private ?int $year = null;
+    private ?string $year = null;
 
     #[ORM\Column(length: 10)]
     private ?string $price = null;
@@ -73,12 +73,12 @@ class Car
         return $this;
     }
 
-    public function getYear(): ?int
+    public function getYear(): ?string
     {
         return $this->year;
     }
 
-    public function setYear(int $year): static
+    public function setYear(string $year): static
     {
         $this->year = $year;
 
