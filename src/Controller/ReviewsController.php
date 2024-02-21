@@ -28,12 +28,7 @@ class ReviewsController extends AbstractController
         $form = $this->createForm(ReviewsType::class, $review);
         $form->handleRequest($request);
 
-        $errors = [];
-        if ($form->isSubmitted() && !$form->isValid()) {
-            foreach ($form->getErrors(true, false) as $error) {
-                $errors[] = $error->getMessage();
-            }
-        }
+        $errors = $form->getErrors(true, false);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -53,5 +48,9 @@ class ReviewsController extends AbstractController
             'errors' => $errors,
         ]);
     }
-    
 }
+
+
+
+
+
