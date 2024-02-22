@@ -44,3 +44,4 @@ class ReviewsType extends AbstractType
         ]);
     }
 }
+
