@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface; 
 
 class ReviewsController extends AbstractController
 {
@@ -31,10 +32,7 @@ class ReviewsController extends AbstractController
         $errors = $form->getErrors(true, false);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($review);
-            $entityManager->flush();
-
+            $this->saveReview($review);
             $this->addFlash('success', 'Votre avis a été soumis avec succès! Il sera publié après approbation.');
 
             return $this->redirectToRoute('app_reviews');
@@ -47,5 +45,13 @@ class ReviewsController extends AbstractController
             'form' => $form->createView(),
             'errors' => $errors,
         ]);
+    }
+
+    // Modification de la signature pour utiliser l'injection de dépendances
+    private function saveReview(Reviews $review): void
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($review);
+        $entityManager->flush();
     }
 }

@@ -37,11 +37,6 @@ class Reviews
     #[Assert\NotBlank(message: "Le nom de famille est requis")]
     private ?string $lastname = null;
 
-
-    #[ORM\ManyToOne(inversedBy: 'reviews')]
-    #[ORM\JoinColumn(nullable: true)]
-    private ?Customer $customer = null;
-
     #[ORM\ManyToOne(inversedBy: 'reviews')]
     #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
@@ -95,18 +90,6 @@ class Reviews
     public function setIsApproved(bool $isApproved): static
     {
         $this->isApproved = $isApproved;
-
-        return $this;
-    }
-
-    public function getCustomer(): ?Customer
-    {
-        return $this->customer;
-    }
-
-    public function setCustomer(?Customer $customer): static
-    {
-        $this->customer = $customer;
 
         return $this;
     }

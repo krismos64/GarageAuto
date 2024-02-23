@@ -22,10 +22,6 @@ class Message
 
     #[ORM\ManyToOne(inversedBy: 'message')]
     #[ORM\JoinColumn(nullable: true)]
-    private ?Customer $customer = null;
-
-    #[ORM\ManyToOne(inversedBy: 'message')]
-    #[ORM\JoinColumn(nullable: true)]
     private ?User $users = null;
 
     #[ORM\Column(length: 100)]
@@ -66,18 +62,6 @@ class Message
     public function setMessage(string $message): static
     {
         $this->message = $message;
-
-        return $this;
-    }
-
-    public function getCustomer(): ?Customer
-    {
-        return $this->customer;
-    }
-
-    public function setCustomer(?Customer $customer): static
-    {
-        $this->customer = $customer;
 
         return $this;
     }
