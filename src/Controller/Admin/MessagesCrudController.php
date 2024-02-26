@@ -7,7 +7,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
-use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -30,7 +29,6 @@ class MessagesCrudController extends AbstractCrudController
         yield    EmailField::new('email', 'E-mail');
         yield    TextField::new('phoneNumber', 'Numéro de téléphone');
         yield    TextareaField::new('Message', 'Contenu du message');
-        yield    BooleanField::new('isApproved', 'Traité')->renderAsSwitch();
     }
     public function configureCrud(Crud $crud): Crud
     {

@@ -14,9 +14,6 @@ class Message
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $title = null;
-
     #[ORM\Column(type: Types::TEXT)]
     private ?string $message = null;
 
@@ -40,18 +37,6 @@ class Message
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): static
-    {
-        $this->title = $title;
-
-        return $this;
     }
 
     public function getMessage(): ?string
@@ -111,5 +96,17 @@ class Message
 
         return $this;
     }
+    
+    public function getUser(): ?User
+{
+    return $this->users;
+}
+
+public function setUser(?User $user): static
+{
+    $this->users = $user;
+
+    return $this;
+}
     }
     
