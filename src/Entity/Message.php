@@ -17,9 +17,9 @@ class Message
     #[ORM\Column(type: Types::TEXT)]
     private ?string $message = null;
 
-    #[ORM\ManyToOne(inversedBy: 'message')]
+    #[ORM\ManyToOne(inversedBy: 'messages')]
     #[ORM\JoinColumn(nullable: true)]
-    private ?User $users = null;
+    private ?User $user = null;
 
     #[ORM\Column(length: 100)]
     private ?string $firstName = null;
@@ -33,6 +33,8 @@ class Message
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private bool $processed = false;
 
     public function getId(): ?int
     {
@@ -62,7 +64,8 @@ class Message
 
         return $this;
     }
-        public function getEmail(): ?string
+
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -73,6 +76,7 @@ class Message
 
         return $this;
     }
+
     public function getFirstName(): ?string
     {
         return $this->firstName;
@@ -96,17 +100,28 @@ class Message
 
         return $this;
     }
-    
+
     public function getUser(): ?User
-{
-    return $this->users;
-}
-
-public function setUser(?User $user): static
-{
-    $this->users = $user;
-
-    return $this;
-}
+    {
+        return $this->user;
     }
-    
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function isProcessed(): bool
+    {
+        return $this->processed;
+    }
+
+    public function setProcessed(bool $processed): static
+    {
+        $this->processed = $processed;
+
+        return $this;
+    }
+}
