@@ -66,17 +66,6 @@ class Message
         return $this;
     }
 
-    public function getUsers(): ?User
-    {
-        return $this->users;
-    }
-
-    public function setUsers(?User $users): static
-    {
-        $this->users = $users;
-
-        return $this;
-    }
     public function getPhoneNumber(): ?string
     {
         return $this->phoneNumber;
