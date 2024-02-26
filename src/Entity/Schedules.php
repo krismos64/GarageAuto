@@ -22,7 +22,8 @@ class Schedules
     #[ORM\Column(length: 255)]
     private ?string $ClosingTime = null;
 
-    #[ORM\ManyToOne(inversedBy: 'modify_schedules')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'schedules')]
+    #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id')]
     private ?User $user = null;
 
     public function getId(): ?int

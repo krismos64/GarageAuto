@@ -82,12 +82,12 @@ class Reviews
         return $this;
     }
 
-    public function isIsApproved(): ?bool
+    public function getIsApproved(): ?bool
     {
         return $this->isApproved;
     }
 
-    public function setIsApproved(bool $isApproved): static
+    public function setIsApproved(bool $isApproved): self
     {
         $this->isApproved = $isApproved;
 

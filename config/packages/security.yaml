@@ -32,3 +32,8 @@ security:
         lifetime: 604800
         path: /
         always_remember_me: true
+
+    # Nouveau pare-feu pour la route "avis-clients"
+    avis_clients:
+      pattern: ^/avis-clients
+      security: false

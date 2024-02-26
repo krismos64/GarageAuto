@@ -5,7 +5,6 @@ namespace App\Controller\Admin;
 use App\Entity\Reviews;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
@@ -20,12 +19,12 @@ class ReviewsCrudController extends AbstractCrudController
      public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('Firstname')->setLabel('Prénom'),
-            TextField::new('Lastname')->setLabel('Nom'),
-            TextField::new('Content', 'Contenu du message'),
-            IntegerField::new('Rating')->setLabel('Note sur 5'),
-            DateField::new('CreatedAt')->setLabel('Date de publication'),
-            BooleanField::new('isApproved', 'Validation')
+            TextField::new('firstname')->setLabel('Prénom'),
+            TextField::new('lastname')->setLabel('Nom'),
+            TextField::new('content', 'Contenu du message'),
+            IntegerField::new('rating')->setLabel('Note sur 5'),
+            DateField::new('created_at')->setLabel('Date de publication'),
+            BooleanField::new('is_approved', 'Validation')
                     ->renderAsSwitch()
         ];
     }

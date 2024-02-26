@@ -6,23 +6,34 @@ use App\Entity\Reviews;
 use App\Form\ReviewsType;
 use App\Repository\ReviewsRepository;
 use App\Repository\SchedulesRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\ORM\EntityManagerInterface; 
 
 class ReviewsController extends AbstractController
 {
+    private $entityManager;
+    private $reviewsRepository;
+    private $schedulesRepository;
+
+    public function __construct(EntityManagerInterface $entityManager, ReviewsRepository $reviewsRepository, SchedulesRepository $schedulesRepository)
+    {
+        $this->entityManager = $entityManager;
+        $this->reviewsRepository = $reviewsRepository;
+        $this->schedulesRepository = $schedulesRepository;
+    }
+
     #[Route('/avis-clients', name: 'app_reviews', methods: ['GET', 'POST'])]
-    public function index(Request $request, ReviewsRepository $reviewsRepository, SchedulesRepository $schedulesRepository): Response
+    public function index(Request $request): Response
     {
         $days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
-        $reviews = $reviewsRepository->findAll();
+        $reviews = $this->reviewsRepository->findAll();
         $workingHours = [];
 
         foreach ($days as $day) {
-            $workingHours[$day] = $schedulesRepository->findWorkingHoursByDay($day);
+            $workingHours[$day] = $this->schedulesRepository->findWorkingHoursByDay($day);
         }
 
         $review = new Reviews();
@@ -47,11 +58,9 @@ class ReviewsController extends AbstractController
         ]);
     }
 
-    // Modification de la signature pour utiliser l'injection de dépendances
     private function saveReview(Reviews $review): void
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($review);
-        $entityManager->flush();
+        $this->entityManager->persist($review);
+        $this->entityManager->flush();
     }
 }
