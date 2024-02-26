@@ -43,7 +43,7 @@ class ReviewsController extends AbstractController
         $errors = $form->getErrors(true, false);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $review->setIsApproved(false); // Set the review as not approved by default
+            $review->setIsApproved(false); 
             $this->saveReview($review);
             $this->addFlash('success', 'Votre avis a été soumis avec succès! Il sera publié après approbation.');
 

@@ -46,8 +46,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Car::class, mappedBy: 'user')]
     private Collection $car;
 
-    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'users')]
-    private Collection $message;
+    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'user')]
+    private Collection $messages;
 
     #[ORM\OneToMany(targetEntity: Reviews::class, mappedBy: 'user')]
     private Collection $reviews;
@@ -57,7 +57,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->schedules = new ArrayCollection();
         $this->services = new ArrayCollection();
         $this->car = new ArrayCollection();
-        $this->message = new ArrayCollection();
+        $this->messages = new ArrayCollection();
         $this->reviews = new ArrayCollection();
     }
 
@@ -228,7 +228,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getMessage(): Collection
     {
-        return $this->message;
+        return $this->messages;
     }
 
     /**

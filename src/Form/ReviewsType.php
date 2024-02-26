@@ -6,6 +6,8 @@ use App\Entity\Reviews;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType; // Importez le type DateTimeType
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -29,11 +31,17 @@ class ReviewsType extends AbstractType
                 'required' => true,
                 'attr' => ['min' => 1, 'max' => 5],
             ])
-            ->add('content', null, [
+            ->add('content', TextType::class, [
                 'label' => 'Contenu du message',
                 'required' => true,
             ])
-        ;
+            ->add('createdAt', DateTimeType::class, [
+                'label' => 'Date de publication',
+                'required' => true,
+            ])
+            ->add('isApproved', CheckboxType::class, [
+                'label' => 'Approuvé',
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
