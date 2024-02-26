@@ -13,76 +13,73 @@ class Reviews
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private ?int $id;
 
     #[ORM\Column]
     #[Assert\NotBlank(message: "La note est requise")]
-    private ?int $rating = null;
+    private int $rating;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank(message: "Le champ commentaire est requis")]
-    private ?string $content = null;
+    private string $content;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    private \DateTimeImmutable $createdAt;
 
     #[ORM\Column]
-    private ?bool $isApproved = null;
+    private bool $isApproved;
 
     #[ORM\Column]
     #[Assert\NotBlank(message: "Le prénom est requis")]
-    private ?string $firstname = null;
+    private string $firstname;
 
     #[ORM\Column]
     #[Assert\NotBlank(message: "Le nom de famille est requis")]
-    private ?string $lastname = null;
+    private string $lastname;
 
     #[ORM\ManyToOne(inversedBy: 'reviews')]
     #[ORM\JoinColumn(nullable: true)]
-    private ?User $user = null;
+    private ?User $user;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+        $this->isApproved = false;
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getRating(): ?int
+    public function getRating(): int
     {
         return $this->rating;
     }
 
-    public function setRating(int $rating): static
+    public function setRating(int $rating): self
     {
         $this->rating = $rating;
-
         return $this;
     }
 
-    public function getContent(): ?string
+    public function getContent(): string
     {
         return $this->content;
     }
 
-    public function setContent(string $content): static
+    public function setContent(string $content): self
     {
         $this->content = $content;
-
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getIsApproved(): ?bool
+    public function getIsApproved(): bool
     {
         return $this->isApproved;
     }
@@ -90,7 +87,6 @@ class Reviews
     public function setIsApproved(bool $isApproved): self
     {
         $this->isApproved = $isApproved;
-
         return $this;
     }
 
@@ -99,14 +95,13 @@ class Reviews
         return $this->user;
     }
 
-    public function setUser(?User $user): static
+    public function setUser(?User $user): self
     {
         $this->user = $user;
-
         return $this;
     }
 
-    public function getFirstname(): ?string
+    public function getFirstname(): string
     {
         return $this->firstname;
     }
@@ -114,11 +109,10 @@ class Reviews
     public function setFirstname(string $firstname): self
     {
         $this->firstname = $firstname;
-
         return $this;
     }
 
-    public function getLastname(): ?string
+    public function getLastname(): string
     {
         return $this->lastname;
     }
@@ -126,8 +120,6 @@ class Reviews
     public function setLastname(string $lastname): self
     {
         $this->lastname = $lastname;
-
         return $this;
     }
-    
-    }
+}
