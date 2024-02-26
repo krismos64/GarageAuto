@@ -23,8 +23,8 @@ class ReviewsCrudController extends AbstractCrudController
             TextField::new('lastname')->setLabel('Nom'),
             TextField::new('content', 'Contenu du message'),
             IntegerField::new('rating')->setLabel('Note sur 5'),
-            DateField::new('created_at')->setLabel('Date de publication'),
-            BooleanField::new('is_approved', 'Validation')
+            DateField::new('createdAt')->setLabel('Date de publication'),
+            BooleanField::new('isApproved', 'Validation')
                     ->renderAsSwitch()
         ];
     }
@@ -39,4 +39,3 @@ class ReviewsCrudController extends AbstractCrudController
 }
     
     
-
