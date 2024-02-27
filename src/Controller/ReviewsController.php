@@ -40,7 +40,7 @@ class ReviewsController extends AbstractController
         $form = $this->createForm(ReviewsType::class, $review);
         $form->handleRequest($request);
 
-        $errors = $form->getErrors(true, false);
+        $errors = $form->getErrors(true);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $review->setIsApproved(false); 
@@ -61,7 +61,15 @@ class ReviewsController extends AbstractController
 
     private function saveReview(Reviews $review): void
     {
-        $this->entityManager->persist($review);
-        $this->entityManager->flush();
+        try {
+            $this->entityManager->persist($review);
+            $this->entityManager->flush();
+        } catch (\Exception $e) {
+            // Gérer les erreurs de sauvegarde de l'avis
+            // Par exemple, journalisation de l'erreur ou affichage d'un message d'erreur
+            $this->addFlash('error', 'Une erreur est survenue lors de l\'enregistrement de l\'avis.');
+            // Vous pouvez également jeter l'exception pour afficher les détails de l'erreur
+            throw $e;
+        }
     }
 }

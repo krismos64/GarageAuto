@@ -17,6 +17,11 @@ class Reviews
 
     #[ORM\Column]
     #[Assert\NotBlank(message: "La note est requise")]
+    #[Assert\Range(
+        min: 1,
+        max: 5,
+        notInRangeMessage: "La note doit être comprise entre {{ min }} et {{ max }}."
+    )]
     private int $rating;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -81,10 +86,10 @@ class Reviews
     }
 
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
-{
-    $this->createdAt = $createdAt;
-    return $this;
-}
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
 
     public function getIsApproved(): bool
     {

@@ -38,6 +38,9 @@ class ReviewsType extends AbstractType
             ->add('createdAt', DateTimeType::class, [
                 'label' => 'Date de publication',
                 'required' => true,
+                'widget' => 'single_text', 
+                'format' => 'yyyy-MM-dd HH:mm:ss',
+                'html5' => false,
             ])
             ->add('isApproved', CheckboxType::class, [
                 'label' => 'Approuvé',
