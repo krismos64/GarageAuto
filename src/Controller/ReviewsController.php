@@ -11,24 +11,27 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\FormFactoryInterface;
 
 class ReviewsController extends AbstractController
 {
     private $entityManager;
     private $reviewsRepository;
     private $schedulesRepository;
+    private $formFactory;
 
-    public function __construct(EntityManagerInterface $entityManager, ReviewsRepository $reviewsRepository, SchedulesRepository $schedulesRepository)
+    public function __construct(EntityManagerInterface $entityManager, ReviewsRepository $reviewsRepository, SchedulesRepository $schedulesRepository, FormFactoryInterface $formFactory)
     {
         $this->entityManager = $entityManager;
         $this->reviewsRepository = $reviewsRepository;
         $this->schedulesRepository = $schedulesRepository;
+        $this->formFactory = $formFactory;
     }
 
-    #[Route('/avis-clients', name: 'app_reviews', methods: ['GET', 'POST'])]
+    #[Route('/customer-reviews', name: 'app_reviews', methods: ['GET', 'POST'])]
     public function index(Request $request): Response
     {
-        $days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+        $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
         $reviews = $this->reviewsRepository->findAll();
         $workingHours = [];
 
@@ -37,13 +40,14 @@ class ReviewsController extends AbstractController
         }
 
         $review = new Reviews();
-        $form = $this->createForm(ReviewsType::class, $review);
+        $form = $this->formFactory->create(ReviewsType::class, $review);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $review->setIsApproved(false); 
-            $this->saveReview($review);
-            $this->addFlash('success', 'Votre avis a été soumis avec succès! Il sera publié après approbation.');
+            $this->entityManager->persist($review);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'Review submitted successfully.');
 
             return $this->redirectToRoute('app_reviews');
         }
@@ -52,22 +56,8 @@ class ReviewsController extends AbstractController
             'controller_name' => 'ReviewsController',
             'workingHours' => $workingHours,
             'reviews' => $reviews,
-            'form' => $form->createView(),
+            'review_form' => $form->createView(),
             'errors' => $form->getErrors(true, false),
         ]);
-    }
-
-    private function saveReview(Reviews $review): void
-    {
-        try {
-            $this->entityManager->persist($review);
-            $this->entityManager->flush();
-        } catch (\Exception $e) {
-            // Gérer les erreurs de sauvegarde de l'avis
-            // Par exemple, journalisation de l'erreur ou affichage d'un message d'erreur
-            $this->addFlash('error', 'Une erreur est survenue lors de l\'enregistrement de l\'avis.');
-            // Vous pouvez également jeter l'exception pour afficher les détails de l'erreur
-            throw $e;
-        }
     }
 }

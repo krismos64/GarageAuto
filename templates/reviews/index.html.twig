@@ -10,6 +10,21 @@
         margin-top: 50px;
         line-height: 1.5;
     }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .col-md-8 {
+            width: 100%;
+        }
+    }
 </style>
 <h1>Laissez-nous un avis après votre passage</h1>
 
@@ -22,28 +37,30 @@
                     <div class="card-body">
                         <h2>Laissez votre avis</h2>
                         <div class="review-form">
-                            {% if errors is not empty %}
+                            {{ form_start(review_form) }}
+                            {% if errors|length > 0 %}
                                 <div class="alert alert-danger">
                                     <ul>
                                         {% for error in errors %}
-                                            <li>{{ error }}</li>
+                                            <li>{{ error.messageKey|trans(error.messageData, 'validators') }}</li>
                                         {% endfor %}
                                     </ul>
                                 </div>
                             {% endif %}
-                            <form method="post" action="{{ path('app_reviews') }}">
-                                <input type="text" name="firstname" placeholder="Votre prénom" required>
-                                <input type="text" name="lastname" placeholder="Votre nom" required>
-                                <textarea name="content" placeholder="Votre commentaire" required></textarea>
-                                <div class="star-rating">
-                                    {% for i in 5..1 %}
-                                        <input type="radio" name="rating" value="{{ i }}" id="star{{ i }}"required>
-                                        <label for="star{{ i }}">&#9733;</label>
-                                    {% endfor %}
-                                </div>
-                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                                <button type="submit" class="submit-btn">Soumettre</button>
-                            </form>
+                            <div class="form-group">
+                                {{ form_row(review_form.firstname, {'attr': {'class': 'form-control', 'placeholder': 'Votre prénom', 'required': true}}) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_row(review_form.lastname, {'attr': {'class': 'form-control', 'placeholder': 'Votre nom', 'required': true}}) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_row(review_form.content, {'attr': {'class': 'form-control', 'placeholder': 'Votre commentaire', 'required': true, 'rows': 10}}) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_row(review_form.rating, {'attr': {'class': 'form-control', 'min': 1, 'max': 5}}) }}
+                            </div>
+                            <button type="submit" class="submit-btn btn btn-primary">Soumettre</button>
+                            {{ form_end(review_form) }}
                         </div>
                     </div>
                 </div>
@@ -67,6 +84,18 @@
         margin-top: 50px;
         line-height: 1.5;
     }
+
+    .review-card {
+        margin-bottom: 20px;
+    }
+
+    .review-text {
+        margin-bottom: 10px;
+    }
+
+    .card-footer {
+        font-weight: bold;
+    }
 </style>
 <h1>Les commentaires de nos clients :</h1>
 
@@ -78,22 +107,10 @@
                 <div class="col-md-6 mb-4">
                     <div class="card review-card">
                         <div class="card-body">
-                            <p class="card-text review-text">{{ review.getContent() }}</p>
+                            <p class="card-text review-text">{{ review.content }}</p>
                         </div>
                         <div class="card-footer">
-                            <strong>{{ review.getFirstname() }} {{ review.getLastname() }}</strong>
-                            <br>
-                            <div class="star-rating">
-                                {% for i in 1..5 %}
-                                    {% if i <= review.getRating() %}
-                                        <span class="star">&#9733;</span>
-                                    {% else %}
-                                        <span class="star">&#9734;</span>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                            <br>
-                            <span class="text-muted">Publié le {{ review.getCreatedAt()|date('d/m/Y H:i:s') }}</span>
+                            <strong>{{ review.firstname }} {{ review.lastname }}</strong>
                         </div>
                     </div>
                 </div>
@@ -104,3 +121,4 @@
 <!-- End reviews section -->
 
 {% endblock %}
+
