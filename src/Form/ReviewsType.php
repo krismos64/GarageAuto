@@ -6,7 +6,6 @@ use App\Entity\Reviews;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType; // Importez le type DateTimeType
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -35,12 +34,16 @@ class ReviewsType extends AbstractType
                 'label' => 'Contenu du message',
                 'required' => true,
             ])
-            ->add('createdAt', DateTimeType::class, [
+            ->add('createdAt', TextType::class, [
                 'label' => 'Date de publication',
                 'required' => true,
-                'widget' => 'single_text', 
-                'format' => 'yyyy-MM-dd HH:mm:ss',
-                'html5' => false,
+                'attr' => ['maxlength' => 19],
+                'constraints' => [
+                    new \Symfony\Component\Validator\Constraints\DateTime([
+                        'format' => 'Y-m-d H:i:s',
+                        'message' => 'Le format de la date doit être yyyy-MM-dd HH:mm:ss.'
+                    ])
+                ]
             ])
             ->add('isApproved', CheckboxType::class, [
                 'label' => 'Approuvé',

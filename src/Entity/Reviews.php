@@ -20,7 +20,6 @@ class Reviews
     #[Assert\Range(
         min: 1,
         max: 5,
-        notInRangeMessage: "La note doit être comprise entre {{ min }} et {{ max }}."
     )]
     private int $rating;
 

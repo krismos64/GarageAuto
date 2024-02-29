@@ -40,8 +40,6 @@ class ReviewsController extends AbstractController
         $form = $this->createForm(ReviewsType::class, $review);
         $form->handleRequest($request);
 
-        $errors = $form->getErrors(true);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $review->setIsApproved(false); 
             $this->saveReview($review);
@@ -55,7 +53,7 @@ class ReviewsController extends AbstractController
             'workingHours' => $workingHours,
             'reviews' => $reviews,
             'form' => $form->createView(),
-            'errors' => $errors,
+            'errors' => $form->getErrors(true, false),
         ]);
     }
 
