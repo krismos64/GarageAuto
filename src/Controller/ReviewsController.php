@@ -29,11 +29,12 @@ class ReviewsController extends AbstractController
     }
 
     #[Route('/customer-reviews', name: 'app_reviews', methods: ['GET', 'POST'])]
-    public function index(Request $request): Response
+    public function index(SchedulesRepository $schedulesRepository, Request $request): Response
     {
-        $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-        $reviews = $this->reviewsRepository->findAll();
+        $days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
         $workingHours = [];
+        $reviews = $this->reviewsRepository->findAll();
+      
 
         foreach ($days as $day) {
             $workingHours[$day] = $this->schedulesRepository->findWorkingHoursByDay($day);
@@ -44,19 +45,20 @@ class ReviewsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $review->setIsApproved(false);
             $this->entityManager->persist($review);
             $this->entityManager->flush();
 
-            $this->addFlash('success', 'Review submitted successfully.');
+            $this->addFlash('success', 'Votre avis a été transmis avec succès !');
 
             return $this->redirectToRoute('app_reviews');
         }
 
         return $this->render('reviews/index.html.twig', [
             'controller_name' => 'ReviewsController',
-            'workingHours' => $workingHours,
             'reviews' => $reviews,
             'review_form' => $form->createView(),
+            'workingHours' => $workingHours,
             'errors' => $form->getErrors(true, false),
         ]);
     }

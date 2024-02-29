@@ -13,18 +13,24 @@ class ReviewsType extends AbstractType
     {
         $builder
             ->add('rating', null, [
-                'label' => 'Note'
+                'label' => 'Note sur 5',
+                'label_attr' => ['class' => 'white-bold-label'],
             ])
             ->add('content', null, [
-                'label' => 'Contenu'
+                'label' => false,
+                'attr' => ['rows' => 5], 
+            ])
+            ->add('isApproved', null, [
+                'label' => false,
+                'disabled' => true,
+                'required' => false,
             ])
             ->add('firstname', null, [
-                'label' => 'Prénom'
+                'label' => false,
             ])
             ->add('lastname', null, [
-                'label' => 'Nom'
-            ])
-        ;
+                'label' => false,
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

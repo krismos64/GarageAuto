@@ -35,8 +35,6 @@ class ContactController extends AbstractController
 
         // Create the form using the ContactType form type and pass the $message object
         $form = $this->createForm(ContactType::class, $message);
-
-        // Handle the form submission
         $form->handleRequest($request);
 
         // Check if the form is submitted and valid
