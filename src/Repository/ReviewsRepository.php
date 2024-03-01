@@ -14,15 +14,15 @@ class ReviewsRepository extends ServiceEntityRepository
     }
 
     /**
-     * Retourne les avis non approuvés
+     * Trouve et renvoie tous les avis approuvés.
      *
-     * @return Reviews[]
+     * @return Reviews[] Les avis approuvés
      */
-    public function findUnapprovedReviews(): array
+    public function findApprovedReviews(): array
     {
         return $this->createQueryBuilder('r')
             ->andWhere('r.isApproved = :approved')
-            ->setParameter('approved', false)
+            ->setParameter('approved', true)
             ->getQuery()
             ->getResult();
     }

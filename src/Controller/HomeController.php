@@ -13,10 +13,9 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(SchedulesRepository $schedulesRepository, ReviewsRepository $reviewsRepository): Response
     {
-    
         $days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
-        $reviews = $reviewsRepository->findAll();
-        $workingHours = [];
+        $reviews = $reviewsRepository->findApprovedReviews(); 
+        
         foreach ($days as $day) {
             $workingHours[$day] = $schedulesRepository->findWorkingHoursByDay($day);
         }
@@ -24,7 +23,6 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'workingHours' => $workingHours,
             'reviews' => $reviews
-            
         ]);
     }
 }

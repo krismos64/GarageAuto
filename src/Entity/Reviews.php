@@ -12,14 +12,15 @@ class Reviews
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $id;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::INTEGER)]
     #[Assert\NotBlank(message: "La note est requise")]
     #[Assert\Range(
         min: 1,
         max: 5,
+        notInRangeMessage: "La note doit être entre 1 et 5",
     )]
     private int $rating;
 
@@ -27,29 +28,23 @@ class Reviews
     #[Assert\NotBlank(message: "Le champ commentaire est requis")]
     private string $content;
 
-    #[ORM\Column]
+    #[ORM\Column(type: "datetime_immutable")]
     private \DateTimeImmutable $createdAt;
 
-    #[ORM\Column]
-    private bool $isApproved;
+    #[ORM\Column(type: Types::BOOLEAN)]
+    private bool $isApproved = false;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::STRING)]
     #[Assert\NotBlank(message: "Le prénom est requis")]
     private string $firstname;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::STRING)]
     #[Assert\NotBlank(message: "Le nom de famille est requis")]
     private string $lastname;
 
-    #[ORM\ManyToOne(inversedBy: 'reviews')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'reviews')]
     #[ORM\JoinColumn(nullable: true)]
     private ?User $user;
-
-    public function __construct()
-    {
-        $this->createdAt = new \DateTimeImmutable();
-        $this->isApproved = false;
-    }
 
     public function getId(): ?int
     {
@@ -78,10 +73,9 @@ class Reviews
         return $this;
     }
 
-    public function getCreatedAt(): \DateTimeImmutable
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
-    
     }
 
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
@@ -90,26 +84,26 @@ class Reviews
         return $this;
     }
 
-    public function getIsApproved(): bool
-    {
-        return $this->isApproved;
-    }
-
     public function setIsApproved(bool $isApproved): self
     {
         $this->isApproved = $isApproved;
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getIsApproved(): bool
     {
-        return $this->user;
+        return $this->isApproved;
     }
 
     public function setUser(?User $user): self
     {
         $this->user = $user;
         return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
     }
 
     public function getFirstname(): string

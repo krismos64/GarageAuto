@@ -33,8 +33,7 @@ class ReviewsController extends AbstractController
     {
         $days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
         $workingHours = [];
-        $reviews = $this->reviewsRepository->findAll();
-      
+        $reviews = $this->reviewsRepository->findApprovedReviews();
 
         foreach ($days as $day) {
             $workingHours[$day] = $this->schedulesRepository->findWorkingHoursByDay($day);
@@ -45,6 +44,7 @@ class ReviewsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $review->setCreatedAt(new \DateTimeImmutable()); // Set the createdAt field with the current date
             $review->setIsApproved(false);
             $this->entityManager->persist($review);
             $this->entityManager->flush();
@@ -54,12 +54,19 @@ class ReviewsController extends AbstractController
             return $this->redirectToRoute('app_reviews');
         }
 
+        // Get errors from the form
+        $errors = [];
+        foreach ($form->getErrors(true) as $error) {
+            $errors[] = $error->getMessage();
+        }
+
+        // Pass the errors to the template
         return $this->render('reviews/index.html.twig', [
             'controller_name' => 'ReviewsController',
             'reviews' => $reviews,
             'review_form' => $form->createView(),
             'workingHours' => $workingHours,
-            'errors' => $form->getErrors(true, false),
+            'errors' => $errors,
         ]);
     }
 }

@@ -6,7 +6,6 @@
 
 <h1>Laissez-nous un avis après votre passage</h1>
 
-<!-- Start review form section -->
 <section class="review-form-section sec-padding">
     <div class="container">
         <div class="row">
@@ -15,11 +14,11 @@
                     <div class="card-body">
                         <div class="review-form">
                             {{ form_start(review_form) }}
-                            {% if errors|length > 0 %}
+                            {% if errors is not empty %}
                                 <div class="alert alert-danger">
                                     <ul>
                                         {% for error in errors %}
-                                            <li>{{ error.messageKey|trans(error.messageData, 'validators') }}</li>
+                                            <li>{{ error }}</li>
                                         {% endfor %}
                                     </ul>
                                 </div>
@@ -45,8 +44,6 @@
         </div>
     </div>
 </section>
-<!-- End review form section -->
-
 
 {% for message in app.flashes('success') %}
     <div class="alert alert-success">
@@ -74,6 +71,7 @@
         font-weight: bold;
     }
 </style>
+
 <h1>Les commentaires de nos clients :</h1>
 
 <!-- Start reviews section -->
@@ -98,10 +96,6 @@
         .review-text {
             color: #233588; 
         }
-        .white-bold-label {
-    color: white;
-    font-weight: bold;
-}
     </style>
 
     <div class="container">
@@ -137,4 +131,3 @@
 
 
 {% endblock %}
-
