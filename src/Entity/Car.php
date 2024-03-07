@@ -3,9 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\CarRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: CarRepository::class)]
 class Car
@@ -41,8 +42,12 @@ class Car
     private ?User $user = null;
 
     #[ORM\OneToMany(targetEntity: CarImage::class, mappedBy: 'car')]
-    private $carImages;
+    private Collection $carImages;
 
+    public function __construct()
+    {
+        $this->carImages = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -54,7 +59,7 @@ class Car
         return $this->brand;
     }
 
-    public function setBrand(string $brand): static
+    public function setBrand(string $brand): self
     {
         $this->brand = $brand;
 
@@ -66,7 +71,7 @@ class Car
         return $this->model;
     }
 
-    public function setModel(string $model): static
+    public function setModel(string $model): self
     {
         $this->model = $model;
 
@@ -78,7 +83,7 @@ class Car
         return $this->year;
     }
 
-    public function setYear(string $year): static
+    public function setYear(string $year): self
     {
         $this->year = $year;
 
@@ -90,7 +95,7 @@ class Car
         return $this->price;
     }
 
-    public function setPrice(string $price): static
+    public function setPrice(string $price): self
     {
         $this->price = $price;
 
@@ -102,7 +107,7 @@ class Car
         return $this->km;
     }
 
-    public function setKm(string $km): static
+    public function setKm(string $km): self
     {
         $this->km = $km;
 
@@ -114,7 +119,7 @@ class Car
         return $this->title;
     }
 
-    public function setTitle(string $title): static
+    public function setTitle(string $title): self
     {
         $this->title = $title;
 
@@ -126,7 +131,7 @@ class Car
         return $this->description;
     }
 
-    public function setDescription(string $description): static
+    public function setDescription(string $description): self
     {
         $this->description = $description;
 
@@ -138,24 +143,22 @@ class Car
         return $this->user;
     }
 
-    public function setUser(?User $user): static
+    public function setUser(?User $user): self
     {
         $this->user = $user;
 
         return $this;
     }
 
-    public function __construct()
-    {
-        $this->carImages = new ArrayCollection();
-    }
-
-    public function getCarImages()
+    /**
+     * @return Collection|CarImage[]
+     */
+    public function getCarImages(): Collection
     {
         return $this->carImages;
     }
 
-    public function addCarImage(CarImage $carImage)
+    public function addCarImage(CarImage $carImage): self
     {
         if (!$this->carImages->contains($carImage)) {
             $this->carImages[] = $carImage;
@@ -165,10 +168,10 @@ class Car
         return $this;
     }
 
-    public function removeCarImage(CarImage $carImage)
+    public function removeCarImage(CarImage $carImage): self
     {
         if ($this->carImages->removeElement($carImage)) {
-
+            // set the owning side to null (unless already changed)
             if ($carImage->getCar() === $this) {
                 $carImage->setCar(null);
             }
@@ -176,6 +179,4 @@ class Car
 
         return $this;
     }
-
-
 }

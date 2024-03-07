@@ -80,7 +80,6 @@ class DashboardController extends AbstractDashboardController
 
         if ($this->isGranted('ROLE_SUPER_ADMIN')) {
             yield MenuItem::subMenu('Jours d\'ouverture', 'fas fa-door-open')->setSubItems([
-                MenuItem::linkToCrud('Modifier les horaires', 'fas fa-door-open', Schedules::class)->setAction(Crud::PAGE_NEW),
                 MenuItem::linkToCrud('Aperçu des horaires', 'fas fa-eye', Schedules::class)
             ]);
         }

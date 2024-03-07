@@ -20,7 +20,7 @@ class CarImage
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(inversedBy: 'carImages')]
+    #[ORM\ManyToOne(targetEntity: Car::class, inversedBy: 'carImages')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Car $car = null;
 

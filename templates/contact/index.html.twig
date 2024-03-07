@@ -18,31 +18,29 @@
                     }
 
                     .form-group label {
-                        font-weight: bold;
-                        color: #233588;
+                        display: none; /* Masque les labels des champs */
                     }
                 </style>
 
                 <h1>Votre demande</h1>
                 {{ form_start(form, {'attr': {'id': 'form-contact'}} ) }}
                 
-                {# Display form errors at the top of the form #}
                 {{ form_errors(form) }}
 
                 <div class="form-group my-3">
-                    {{ form_row(form.firstName, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_row(form.firstName, {'attr': {'class': 'form-control', 'placeholder': 'Prénom'}}) }}
                 </div>
                 <div class="form-group my-3">
-                    {{ form_row(form.lastName, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_row(form.lastName, {'attr': {'class': 'form-control', 'placeholder': 'Nom'}}) }}
                 </div>
                 <div class="form-group my-3">
-                    {{ form_row(form.email, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_row(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
                 </div>
                 <div class="form-group my-3">
-                    {{ form_row(form.phoneNumber, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_row(form.phoneNumber, {'attr': {'class': 'form-control', 'placeholder': 'Téléphone'}}) }}
                 </div>
                 <div class="form-group my-3" id="formContent">
-                    {{ form_row(form.message, {'attr': {'class': 'form-control', 'id': 'contentField'}}) }}
+                    {{ form_row(form.message, {'attr': {'class': 'form-control', 'placeholder': 'Message'}}) }}
                 </div>
                 {{ form_row(form._token) }}
                 <div class="d-flex justify-content-center">
