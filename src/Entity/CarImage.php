@@ -21,7 +21,7 @@ class CarImage
     private ?string $description = null;
 
     #[ORM\ManyToOne(targetEntity: Car::class, inversedBy: 'carImages')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Car $car = null;
 
     public function getId(): ?int
@@ -64,4 +64,10 @@ class CarImage
 
         return $this;
     }
+
+    public function __toString(): string
+{
+    return $this->getTitle(); 
 }
+}
+

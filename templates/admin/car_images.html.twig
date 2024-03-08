@@ -1,0 +1,11 @@
+{% extends '@EasyAdmin/crud/field/image.html.twig' %}
+
+{% block field %}
+    {% if value is not null %}
+        {% for image in value %}
+            <img src="{{ image.url }}" alt="{{ image.title }}" style="max-width: 100px; max-height: 100px;">
+        {% endfor %}
+    {% else %}
+        <span class="badge badge-warning">Aucune image disponible</span>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends '@EasyAdmin/default/list.html.twig' %}
+
+{% block body %}
+    <div class="easyadmin-list">
+        <table>
+            <thead>
+                <tr>
+                    {% block list_thead_td %}
+                        {% for field in fields %}
+                            <th>{{ field.label }}</th>
+                        {% endfor %}
+                    {% endblock %}
+                </tr>
+            </thead>
+            <tbody>
+                {% block list_tbody %}
+                    {% for entity in entities %}
+                        <tr>
+                            {% for field in fields %}
+                                <td>
+                                    {% if field.property == 'carImages' %}
+                                        {% if entity.carImages|length > 0 %}
+                                            {% for image in entity.carImages %}
+                                                <img src="{{ image.url }}" alt="{{ image.title }}" style="max-width: 50px; max-height: 50px;">
+                                            {% endfor %}
+                                        {% else %}
+                                            <span class="badge badge-warning">Aucune image disponible</span>
+                                        {% endif %}
+                                    {% else %}
+                                        {{ easyadmin_render_field_item(entity, field) }}
+                                    {% endif %}
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                {% endblock %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

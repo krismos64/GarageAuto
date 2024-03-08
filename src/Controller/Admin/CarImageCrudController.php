@@ -20,6 +20,7 @@ class CarImageCrudController extends AbstractCrudController
     {
         return [
             TextField::new('title')->setLabel('Titre image'),
+            TextField::new('description')->setLabel('Description'),
             AssociationField::new('car')->setLabel('Voiture'),
             // Add other fields for CarImage entity...
         ];
