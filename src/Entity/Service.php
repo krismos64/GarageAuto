@@ -104,4 +104,10 @@ class Service
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->title ?? ''; // ou toute autre logique de conversion en chaîne que vous préférez
+    }
+
 }

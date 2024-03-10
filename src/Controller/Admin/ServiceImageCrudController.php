@@ -5,8 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\ServiceImage;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class ServiceImageCrudController extends AbstractCrudController
@@ -19,6 +18,9 @@ class ServiceImageCrudController extends AbstractCrudController
     {
         return [
             TextField::new('Title')->setLabel('Titre image'),
+            TextField::new('description')->setLabel('Description'),
+            AssociationField::new('service')
+            ->setLabel('Service'),
         ];
     }
     public function configureCrud(Crud $crud): Crud

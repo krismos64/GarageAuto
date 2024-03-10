@@ -64,4 +64,10 @@ class ServiceImage
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->title ?? ''; // Retourne le titre de l'image s'il est défini
+    }
+
 }
