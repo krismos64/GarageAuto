@@ -21,7 +21,7 @@ class FAQController extends AbstractController
             $workingHours[$day] = $schedulesRepository->findWorkingHoursByDay($day);
         }
 
-        return $this->render('FAQ/index.html.twig', [
+        return $this->render('faq/index.html.twig', [
             'workingHours' => $workingHours,
             
         ]);
