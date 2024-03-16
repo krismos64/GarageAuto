@@ -13,7 +13,7 @@ Pour cloner le projet, exécutez la commande suivante :
 (https://github.com/krismos64/GarageAuto.git)git clone
 
 Prérequis :
-PHP 8 ou version supérieure
+PHP 8.2 ou version supérieure
 
 MySQL ou un autre serveur de base de données compatible avec Symfony, je recommande PhpMyAdmin
 
@@ -24,7 +24,7 @@ Composer (gestionnaire de dépendances PHP)
 Etapes :
 Accédez au répertoire du projet :
 
-~ cd garageParrot
+~ cd GarageAuto
 Installez les dépendances requises en utilisant Composer :
 
 ~ composer install
@@ -44,7 +44,7 @@ Créez les tables en utilisant les entités de votre application, attention vous
 ~ symfony console doctrine:migrations:migrate
 Démarrez le serveur Web interne de Symfony en exécutant la commande suivante :
 
-~ symfony console serve -d
+~ symfony serve
 Votre application Symfony est maintenant déployée et accessible à l'adresse http://127.0.0.1:8000
 
 Pour vous connecter en tant qu'admin sur le site, il vous faudra créer un utilisateur avec un 'ROLE_ADMIN' qui pourra gérer les fonctionnalités.
