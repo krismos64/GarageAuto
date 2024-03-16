@@ -3,7 +3,7 @@
 Projet Garage V. PARROT
 Il s'agit d'un projet pour un garage fictif proposant des services automobiles ainsi que la vente de véhicules d'occasion. L'administrateur (gérant) dispose d'une interface back-end lui permettant de gérer l'ensemble du site (création d'utilisateurs/employés, publication d'annonces pour les véhicules d'occasion, gestion des demandes clients, gestion des témoignages clients, etc.). Les employés ont également accès au back-end, mais avec des autorisations restreintes.
 
-Voici le lien du site déployé : https://www.garage-parrot.fr
+Voici le lien du site déployé : https://garage-parrot.fr/
 
 Pour vous connecter en tant que SUPER_ADMIN, cliquez sur le bouton "connexion pro" en haut à droite de la top-bar. L'identifiant du patron est "v.parrot@gmail.com et le mot de passe est "password". Une fois connecté, vous aurez accès au bouton "espace pro" en haut à droite qui vous amènera à l'interface administrateur qui permet au gérant d'actualiser son site et aux employés également mais avec un accès limité.
 
