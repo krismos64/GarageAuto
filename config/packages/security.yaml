@@ -37,3 +37,15 @@ security:
     avis_clients:
       pattern: ^/avis-clients
       security: false
+
+      access_control:
+    # Exiger le rôle ROLE_ADMIN pour accéder à /admin
+    - { path: ^/admin, roles: ROLE_ADMIN }
+
+    # Exiger le rôle ROLE_SUPER_ADMIN pour accéder à /super-admin
+    - { path: ^/super-admin, roles: ROLE_SUPER_ADMIN }
+
+
+
+
+    

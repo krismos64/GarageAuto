@@ -10,7 +10,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 
-
 class CarCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
@@ -47,6 +46,4 @@ class CarCrudController extends AbstractCrudController
             ->setPageTitle('new', 'Créer une nouvelle annonce de voiture à vendre')
             ->setPaginatorPageSize(20);
     }
-
-    
 }
