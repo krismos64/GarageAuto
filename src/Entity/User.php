@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'Un compte existe déjà avec cette adresse email')]
@@ -29,6 +30,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'Le mot de passe ne peut pas être vide')]
+    #[Assert\Length(
+        min: 8,
+        minMessage: 'Votre mot de passe doit comporter au moins {{ limit }} caractères',
+        max: 4096
+    )]
+    #[Assert\Regex(
+        pattern: '/[A-Z]/',
+        message: 'Votre mot de passe doit contenir au moins une majuscule.'
+    )]
+    #[Assert\Regex(
+        pattern: '/[a-z]/',
+        message: 'Votre mot de passe doit contenir au moins une minuscule.'
+    )]
+    #[Assert\Regex(
+        pattern: '/[0-9]/',
+        message: 'Votre mot de passe doit contenir au moins un chiffre.'
+    )]
+    #[Assert\Regex(
+        pattern: '/[\W]/',
+        message: 'Votre mot de passe doit contenir au moins un caractère spécial.'
+    )]
+
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
@@ -94,7 +118,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_ADMIN
         $roles[] = 'ROLE_ADMIN';
 
         return array_unique($roles);
@@ -127,8 +150,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function eraseCredentials(): void
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+
     }
 
     public function getLastname(): ?string

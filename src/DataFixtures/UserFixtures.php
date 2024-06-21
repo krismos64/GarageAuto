@@ -9,52 +9,28 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture
 {
-    public function __construct(private UserPasswordHasherInterface $passwordHasher)
+    private UserPasswordHasherInterface $passwordHasher;
+
+    public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
+        $this->passwordHasher = $passwordHasher;
     }
 
     public function load(ObjectManager $manager): void
     {
-        $user = new User();
-        $user->setEmail('v.parrot@gmail.com');
-        $user->setPassword ($this->passwordHasher->hashPassword($user, 'password'));
-        $user->setFirstname('Vincent');
-        $user->setLastname('Parrot');
-        $user->setRoles(['ROLE_SUPER_ADMIN']);
-        $manager->persist($user);
+        $superAdmin = new User();
+        $superAdmin->setEmail('v.parrot@gmail.com');
+        $superAdmin->setFirstname('Vincent');
+        $superAdmin->setLastname('Parrot');
+        $superAdmin->setRoles(['ROLE_SUPER_ADMIN']);
+        $superAdmin->setPassword(
+            $this->passwordHasher->hashPassword(
+                $superAdmin,
+                'Toulouse31!' 
+            )
+        );
 
-        $user2 = new User();
-        $user2->setEmail('cmurcie18@gmail.com');
-        $user2->setPassword ($this->passwordHasher->hashPassword($user2, 'password'));
-        $user2->setFirstname('Cyril');
-        $user2->setLastname('Murcie');
-        $user2->setRoles(['ROLE_ADMIN']);
-        $manager->persist($user2);
-
-        $user3 = new User();
-        $user3->setEmail('festayre64@gmail.com');
-        $user3->setPassword ($this->passwordHasher->hashPassword($user3, 'password'));
-        $user3->setFirstname('Marc');
-        $user3->setLastname('Duval');
-        $user3->setRoles(['ROLE_ADMIN']);
-        $manager->persist($user3);
-
-        $user4 = new User();
-        $user4->setEmail('Raki457@yahoo.fr');
-        $user4->setPassword ($this->passwordHasher->hashPassword($user4, 'password'));
-        $user4->setFirstname('Chris');
-        $user4->setLastname('Raki');
-        $user4->setRoles(['ROLE_ADMIN']);
-        $manager->persist($user4);
-
-        $user5 = new User();
-        $user5->setEmail('rlegrand@gmail.com');
-        $user5->setPassword ($this->passwordHasher->hashPassword($user5, 'password'));
-        $user5->setFirstname('Romain');
-        $user5->setLastname('Legrand');
-        $user5->setRoles(['ROLE_ADMIN']);
-        $manager->persist($user5);
-
+        $manager->persist($superAdmin);
         $manager->flush();
     }
 }
