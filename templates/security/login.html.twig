@@ -13,7 +13,7 @@
 
                 {% if app.user %}
                     <div class="mb-3">
-                        Connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
+                        Connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}" class="text-primary">Déconnexion</a>
                     </div>
                 {% endif %}
 
@@ -28,7 +28,7 @@
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
                 <div class="text-end mb-3">
-                    <a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié ?</a>
+                    <a href="{{ path('app_forgot_password_request') }}" class="text-primary">Mot de passe oublié ?</a>
                 </div>
 
                 <button class="btn btn-lg btn-primary" type="submit">
