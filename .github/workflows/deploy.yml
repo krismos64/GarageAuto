@@ -1,0 +1,51 @@
+name: Deploy to Hostinger
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+
+      - name: Installation de PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          extensions: ctype, iconv, mbstring, pdo, pdo_mysql
+          coverage: none
+
+      - name: Installation des dépendances Composer (prod)
+        env:
+          APP_ENV: prod
+        run: composer install --no-dev --optimize-autoloader --no-progress --no-interaction
+
+      - name: Purge du cache de build (reconstruit à la première requête en prod)
+        run: rm -rf var/cache/*
+
+      - name: Déploiement FTP vers Hostinger
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          server-dir: /public_html/
+          dangerous-clean-slate: false
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/tests/**
+            **/.env.local
+            **/.env.*.local
+            **/.env.test
+            **/var/cache/**
+            **/var/log/**
+            **/node_modules/**
+            **/*.md
