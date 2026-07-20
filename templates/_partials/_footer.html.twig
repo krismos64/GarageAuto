@@ -9,7 +9,7 @@
                 <div class="footer-logo">
                   <a href="{{ path('app_home') }}">
                     <img
-                      src="assets/footer/footer-logo.png"
+                      src="{{ asset('assets/footer/footer-logo.png') }}"
                       alt="Logo"
                     />
                   </a>
@@ -144,20 +144,8 @@
             <div class="col-md-4">
               <ul class="footer-social-links">
                 <li>
-                  <a href="#"><i class="fa fa-facebook"></i></a>
+                  <a href="{{ path('app_legal_mentions') }}">Mentions légales</a>
                 </li>
-                <li>
-                  <a href="#"><i class="fa fa-twitter"></i></a>
-                </li>
-                <li>
-                  <a href="#"><i class="fa fa-google-plus"></i></a>
-                </li>
-                <li>
-                  <a href="#"><i class="fa fa-linkedin"></i></a>
-                </li>
-                <li>
-                  <a href="{{ path('app_legal_mentions') }}">Mentions légales</i></a>
-                </li>        
               </ul>
             </div>
           </div>
