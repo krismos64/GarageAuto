@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Schedules;
-use App\Repository\SchedulesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,19 +9,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class FAQController extends AbstractController
 {
     #[Route('/foire-aux-questions', name: 'app_f_a_q')]
-    public function index(SchedulesRepository $schedulesRepository,): Response
+    public function index(): Response
     {
-    
-        $days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
-
-        $workingHours = [];
-        foreach ($days as $day) {
-            $workingHours[$day] = $schedulesRepository->findWorkingHoursByDay($day);
-        }
-
-        return $this->render('faq/index.html.twig', [
-            'workingHours' => $workingHours,
-            
-        ]);
+        return $this->render('faq/index.html.twig');
     }
 }

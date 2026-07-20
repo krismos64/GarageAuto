@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Reviews;
 use App\Form\ReviewsType;
 use App\Repository\ReviewsRepository;
-use App\Repository\SchedulesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,27 +16,19 @@ class ReviewsController extends AbstractController
 {
     private $entityManager;
     private $reviewsRepository;
-    private $schedulesRepository;
     private $formFactory;
 
-    public function __construct(EntityManagerInterface $entityManager, ReviewsRepository $reviewsRepository, SchedulesRepository $schedulesRepository, FormFactoryInterface $formFactory)
+    public function __construct(EntityManagerInterface $entityManager, ReviewsRepository $reviewsRepository, FormFactoryInterface $formFactory)
     {
         $this->entityManager = $entityManager;
         $this->reviewsRepository = $reviewsRepository;
-        $this->schedulesRepository = $schedulesRepository;
         $this->formFactory = $formFactory;
     }
 
     #[Route('/customer-reviews', name: 'app_reviews', methods: ['GET', 'POST'])]
-    public function index(SchedulesRepository $schedulesRepository, Request $request): Response
+    public function index(Request $request): Response
     {
-        $days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
-        $workingHours = [];
         $reviews = $this->reviewsRepository->findApprovedReviews();
-
-        foreach ($days as $day) {
-            $workingHours[$day] = $this->schedulesRepository->findWorkingHoursByDay($day);
-        }
 
         $review = new Reviews();
         $form = $this->formFactory->create(ReviewsType::class, $review);
@@ -65,7 +56,6 @@ class ReviewsController extends AbstractController
             'controller_name' => 'ReviewsController',
             'reviews' => $reviews,
             'review_form' => $form->createView(),
-            'workingHours' => $workingHours,
             'errors' => $errors,
         ]);
     }

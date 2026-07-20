@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Message;
 use App\Form\ContactType;
-use App\Repository\SchedulesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,15 +20,8 @@ class ContactController extends AbstractController
     }
 
     #[Route('/contact', name: 'app_contact')]
-    public function index(SchedulesRepository $schedulesRepository, Request $request): Response
+    public function index(Request $request): Response
     {
-        $days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
-        $workingHours = [];
-
-        foreach ($days as $day) {
-            $workingHours[$day] = $schedulesRepository->findWorkingHoursByDay($day);
-        }
-
         // Create a new instance of the Message entity
         $message = new Message();
 
@@ -50,25 +42,13 @@ class ContactController extends AbstractController
         // Render the contact form template
         return $this->render('contact/index.html.twig', [
             'controller_name' => 'ContactController',
-            'workingHours' => $workingHours,
             'form' => $form->createView(),
         ]);
     }
 
     #[Route('/contact/success', name: 'app_contact_success', methods: ['GET'])]
-    public function success(SchedulesRepository $schedulesRepository): Response
+    public function success(): Response
     {
-        // Fetch the working hours again for the success page
-        $days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
-        $workingHours = [];
-
-        foreach ($days as $day) {
-            $workingHours[$day] = $schedulesRepository->findWorkingHoursByDay($day);
-        }
-
-        // Render the success page template
-        return $this->render('contact/success.html.twig', [
-            'workingHours' => $workingHours,
-        ]);
+        return $this->render('contact/success.html.twig');
     }
 }

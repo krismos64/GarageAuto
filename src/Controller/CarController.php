@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Repository\CarRepository;
-use App\Repository\SchedulesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,28 +12,20 @@ use Symfony\Component\Routing\Annotation\Route;
 class CarController extends AbstractController
 {
     private CarRepository $carRepository;
-    private SchedulesRepository $schedulesRepository;
 
-    public function __construct(CarRepository $carRepository, SchedulesRepository $schedulesRepository)
+    public function __construct(CarRepository $carRepository)
     {
         $this->carRepository = $carRepository;
-        $this->schedulesRepository = $schedulesRepository;
     }
 
     #[Route('/voitures', name: 'app_car')]
     public function index(): Response
     {
         $cars = $this->carRepository->findAllWithImages();
-        $days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
-        $workingHours = [];
-        foreach ($days as $day) {
-            $workingHours[$day] = $this->schedulesRepository->findWorkingHoursByDay($day);
-        }
 
         return $this->render('car/index.html.twig', [
             'controller_name' => 'CarController',
             'cars' => $cars,
-            'workingHours' => $workingHours,
         ]);
     }
 

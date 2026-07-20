@@ -27,6 +27,10 @@
 
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
+                <div class="text-end mb-3">
+                    <a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié ?</a>
+                </div>
+
                 <button class="btn btn-lg btn-primary" type="submit">
                     Connexion à l'espace administrateur
                 </button>
