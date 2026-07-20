@@ -20,10 +20,8 @@ jobs:
           extensions: ctype, iconv, mbstring, pdo, pdo_mysql
           coverage: none
 
-      - name: Installation des dépendances Composer (prod)
-        env:
-          APP_ENV: prod
-        run: composer install --no-dev --optimize-autoloader --no-progress --no-interaction
+      - name: Installation des dépendances Composer (prod, sans scripts Symfony)
+        run: composer install --no-dev --optimize-autoloader --no-progress --no-interaction --no-scripts
 
       - name: Purge du cache de build (reconstruit à la première requête en prod)
         run: rm -rf var/cache/*
