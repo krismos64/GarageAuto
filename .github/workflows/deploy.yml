@@ -6,49 +6,22 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout du code
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-
-      - name: Installation de PHP
-        uses: shivammathur/setup-php@b604ade2a87db23f8871b7182e69ec5e75effb45 # v2
+      - name: Déploiement via SSH (git pull + composer install)
+        uses: appleboy/ssh-action@0ff4204d59e8e51228ff73bce53f80d53301dee2 # v1.2.5
         with:
-          php-version: "8.2"
-          extensions: ctype, iconv, mbstring, pdo, pdo_mysql
-          coverage: none
-
-      - name: Installation des dépendances Composer (prod, sans scripts Symfony)
-        run: composer install --no-dev --optimize-autoloader --no-progress --no-interaction --no-scripts
-
-      - name: Purge du cache de build (reconstruit à la première requête en prod)
-        run: rm -rf var/cache/*
-
-      - name: Déploiement FTP vers Hostinger
-        uses: SamKirkland/FTP-Deploy-Action@8e83cea8672e3fbcbb9fdafff34debf6ae4c5f65 # v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftps
-          server-dir: /public_html/
-          dangerous-clean-slate: false
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/.github/**
-            **/tests/**
-            **/.env.local
-            **/.env.*.local
-            **/.env.test
-            **/var/cache/**
-            **/var/log/**
-            **/node_modules/**
-            **/*.md
-            **/composer.json
-            **/composer.lock
-            **/phpunit.xml.dist
-            **/symfony.lock
-            **/migrations/**
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+            cd ${{ secrets.SITE_PATH }}
+            git fetch origin master
+            git reset --hard origin/master
+            composer install --no-dev --optimize-autoloader --no-progress --no-interaction
+            php bin/console cache:clear --env=prod
+            php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
