@@ -11,10 +11,10 @@ jobs:
 
     steps:
       - name: Checkout du code
-        uses: actions/checkout@v4
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
 
       - name: Installation de PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@b604ade2a87db23f8871b7182e69ec5e75effb45 # v2
         with:
           php-version: "8.2"
           extensions: ctype, iconv, mbstring, pdo, pdo_mysql
@@ -27,7 +27,7 @@ jobs:
         run: rm -rf var/cache/*
 
       - name: Déploiement FTP vers Hostinger
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: SamKirkland/FTP-Deploy-Action@8e83cea8672e3fbcbb9fdafff34debf6ae4c5f65 # v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
@@ -47,3 +47,8 @@ jobs:
             **/var/log/**
             **/node_modules/**
             **/*.md
+            **/composer.json
+            **/composer.lock
+            **/phpunit.xml.dist
+            **/symfony.lock
+            **/migrations/**
