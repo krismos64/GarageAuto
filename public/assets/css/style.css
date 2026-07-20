@@ -2175,3 +2175,33 @@ button {
   background-color: #f8d7da;
   border-color: #f5c6cb;
 }
+
+/* Responsive mobile : le bandeau du haut et le logo empilent mal en dessous de 768px */
+@media (max-width: 767px) {
+  .top-contact-info li {
+    line-height: 1.4;
+    padding-right: 0;
+    display: block;
+    margin-bottom: 10px;
+  }
+  .top-bar-area .top-right .social-links {
+    padding-right: 0;
+    margin: 10px 0;
+  }
+  .top-bar-area .top-right .social-links li {
+    margin-top: 0;
+  }
+  .top-bar-area .connexion-button {
+    margin-top: 10px;
+  }
+  .mainmenu-area .logo {
+    max-width: 55%;
+  }
+  .mainmenu-area .logo img {
+    max-width: 100%;
+    height: auto;
+  }
+  .custom-navbar .navbar-brand {
+    display: none;
+  }
+}
