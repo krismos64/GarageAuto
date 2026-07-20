@@ -10,6 +10,9 @@ security:
         class: App\Entity\User
         property: email
 
+  role_hierarchy:
+    ROLE_SUPER_ADMIN: ROLE_ADMIN
+
   # Configuration des pare-feux
   firewalls:
     # Pare-feu pour l'environnement de développement
